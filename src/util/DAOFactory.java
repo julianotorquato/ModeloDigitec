@@ -4,6 +4,8 @@ import dao.ContatoDAO;
 import dao.ContatoDAOImpl;
 import dao.EventoDAO;
 import dao.EventoDAOImpl;
+import dao.FuncionarioDAO;
+import dao.FuncionarioDAOImpl;
 
 public class DAOFactory {
 	public static ContatoDAO criarContatoDAO() {
@@ -19,5 +21,13 @@ public class DAOFactory {
 				.getCurrentSession());
 
 		return eventoDAO;
+	}
+
+	public static FuncionarioDAO criarFuncionarioDAO() {
+		FuncionarioDAOImpl funcionarioDAO = new FuncionarioDAOImpl();
+		funcionarioDAO.setSession(HibernateUtil.getSessionFactory()
+				.getCurrentSession());
+
+		return funcionarioDAO;
 	}
 }
