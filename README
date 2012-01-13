@@ -1,0 +1,14 @@
+
+######################################################################
+############Modelo de arquitetura do projeto para Digitec#############
+######################################################################
+
+**** Contém ****
+
+- JSF 2.0
+- Spring Core 3
+- Spring Security 3
+- Hibernate 3
+- Hibernate Annotations
+- Facelets
+- PrimeFaces 2.2
