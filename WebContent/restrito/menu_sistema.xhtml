@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:sec="http://www.springframework.org/security/facelets/tags"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition>
+		<h:form>
+			<p:menubar>
+				<p:submenu label="Consulta/Relatório">
+					<p:menuitem value="Serviço"/>
+					<p:menuitem value="Cliente"/>
+					<p:menuitem value="Cargo"/>
+					<p:menuitem value="Funcionário"/>
+					<p:menuitem value="Produto"/>
+					<p:menuitem value="Fornecedor"/>	
+				</p:submenu>
+				
+				<p:submenu label="Atividade">
+					<p:menuitem value="Venda"/>
+					<p:menuitem value="Ordem de Serviço"/>
+				</p:submenu>
+				
+				<p:submenu label="Controle de Produto">
+					<p:menuitem value="Requisição de Produto"/>
+					<p:menuitem value="Fornecimento de Produto"/>
+				</p:submenu>
+				
+				<p:submenu label="Cadastro">
+					<p:menuitem value="Serviço"/>
+					<p:menuitem value="Cliente" />
+					<p:menuitem value="Cargo"/>
+					<p:menuitem value="Funcionário"/>
+					<p:menuitem value="Produto"/>
+					<p:menuitem value="Fornecedor"/>	
+				</p:submenu>
+				
+				<p:submenu label="Administrativo">
+					<p:menuitem value="Controle de Acesso"/>
+					<p:menuitem value="Controle de Tema"/>
+				</p:submenu>
+			</p:menubar>
+		</h:form>
+		
+			<p:stack icon="/resources/imagens/stack.png">  
+			    <p:menuitem value="Aperture" icon="/resources/imagens/aperture.png" url="#"/>  
+			    <p:menuitem value="Photoshop" icon="/resources/imagens/photoshop.png" url="#"/>  
+			    <p:menuitem value="Coda" icon="/resources/imagens/coda.png" url="#"/>  
+			    <p:menuitem value="Safari" icon="/resources/imagens/safari.png" url="#" />  
+			    <p:menuitem value="Finder" icon="/resources/imagens/finder.png" url="#" />  
+			</p:stack> 
+			
+	</ui:composition>
+</html>

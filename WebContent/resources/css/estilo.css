@@ -1,0 +1,52 @@
+@CHARSET "ISO-8859-1";
+/* Desenvolvido por Clézio em 22/05/2011 */
+
+body, td, th {
+	margin:30px 0 0 0;
+	background-color: #FFF;
+	padding: 0;
+	font-family: :Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+a:link, a:visited, a:hover, a:active {
+	text-decoration: none;
+	color: #000;
+}
+
+#pagina {
+	width: 760px;
+	margin: 0 auto;
+	background-color: #E1F0FF;
+	border-width: 1px;
+	border-color: #BED6F8;
+	border-style: solid;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius: 8px 8px 8px 8px;
+}
+
+#banner {
+	padding: 5px;
+	width: 750px;
+}
+
+#menu {
+	background: url(#{resource['imagens:fundo_barra_menu_red.png']});
+	padding-left: 5px;
+	width: 750px;
+}
+
+#conteudo {
+	padding: 5px;
+	float: right;	
+	width: 750px;
+}
+
+#rodape {
+	padding: 0 5px 5px 5px;
+	width: 750px;
+	font-family: Arial,Verdana,sans-serif;
+	font-size: 11px;
+	text-align: center;
+}
