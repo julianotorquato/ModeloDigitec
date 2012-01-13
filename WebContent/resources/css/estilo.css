@@ -32,7 +32,6 @@ a:link, a:visited, a:hover, a:active {
 }
 
 #menu {
-	background: url(#{resource['imagens:fundo_barra_menu_red.png']});
 	padding-left: 5px;
 	width: 750px;
 }
