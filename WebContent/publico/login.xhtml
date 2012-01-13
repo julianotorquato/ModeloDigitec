@@ -11,7 +11,7 @@
 <ui:composition template="/templates/template.xhtml">
 	<ui:define name="conteudo">
 	
-			<h:form prependId="false">
+		<h:form prependId="false">
 			<p:growl id="msg" showDetail="true" showSummary="true"></p:growl>			
 			<p:panel header="Cadastro de Contato">
 			<p:messages/>
@@ -40,7 +40,6 @@
 		
 		<p:spacer height="10"/>
 		
-		<div align="center">
 		<h:form prependId="false">
 		<p:dataTable id="tableContato" var="contato" value="#{contatoBean.contatos}" paginator="true" rows="10" scrollable="true" >
 			<f:facet name="header">
@@ -107,9 +106,7 @@
 			</p:toolbarGroup>
 		</p:toolbar>
 		</h:form>
-		</div>
 		
-		</ui:define>
-
+	</ui:define>
 </ui:composition>
 </html>
