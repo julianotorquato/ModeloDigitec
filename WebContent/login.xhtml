@@ -24,7 +24,7 @@
 			    <h:message  for="userName" errorClass="error"/>
 			    
 			    <h:outputLabel for="password" value="Senha: " />
-			    <p:password id="password" value="#{funcionarioBean.funcionario.senha}" feedback="false" />
+			    <p:password id="password" value="#{funcionarioBean.funcionario.senha}" feedback="true" maxlength="10" minLength="5" />
 			    <h:message for="password" errorClass="error"/>
 			    
 			    <h:outputText value="" />
