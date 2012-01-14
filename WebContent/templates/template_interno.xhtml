@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui"> 
+
+
+<h:head>
+<title>Modelo para Digitec</title>
+<h:outputStylesheet library="css" name="estilo.css"/>
+	<style>
+    	html{font-size: 11px;}
+    </style>
+</h:head> 
+<h:body>	
+	<div id="pagina">
+		<div id="banner">
+			<h:graphicImage library="imagens" name="logo.png" />
+		</div>
+		<div id="menu">
+			<ui:insert name="menu">
+				<ui:include src="/publico/menu_interno.xhtml" />
+			</ui:insert>
+		</div>
+		<div id="conteudo">
+			<p:panel>
+				<ui:insert name="conteudo"/>
+			</p:panel>
+		</div>
+		<p:spacer height="1"/>
+		<div id="rodape">
+			<p:panel>
+				Copyright &copy; 2011 <a href="http://nerdgeek.net/">NerdGeek</a>. Todos os direitos reservados
+			</p:panel>
+		</div>
+	</div>
+</h:body>
+
+</html>

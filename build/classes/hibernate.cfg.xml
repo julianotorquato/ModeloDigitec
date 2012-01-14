@@ -12,7 +12,7 @@
 <!-- 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property> -->
 <!-- 		<property name="connection.url">jdbc:mysql://localhost/agenda</property> -->
 <!-- 		<property name="connection.username">root</property> -->
-<!-- 		<property name="connection.password">root</property> -->
+<!-- 		<property name="connection.password">ROOT</property> -->
 
 <!-- 		<property name="c3p0.min_size">1</property> -->
 <!-- 		<property name="c3p0.max_size">5</property> -->
@@ -26,6 +26,7 @@
         <property name="format_sql">true</property>
 
   <mapping class="dominio.Contato"/> 
+  <mapping class="dominio.Funcionario"/> 
    
     </session-factory>
 </hibernate-configuration>

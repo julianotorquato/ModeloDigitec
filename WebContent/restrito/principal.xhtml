@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:sec="http://www.springframework.org/security/facelets/tags">
+
+	<ui:composition template="/templates/menu_interno.xhtml">
+		<ui:define name="conteudo">
+
+		Usuário logado #{request.remoteUser}
+
+<h:form>
+
+<!--	<sec:ifAnyGranted roles="ROLE_ADMINISTRADOR">-->
+<!--		<h:commandButton value="Administração" action="/admin/controle_acesso"  />-->
+<!--	</sec:ifAnyGranted>-->
+	
+	<input type="button" value="Logout" 
+	onclick="document.location='#{request.contextPath}/j_spring_security_logout'"/>
+</h:form>	
+	</ui:define>
+</ui:composition>	
+</html>

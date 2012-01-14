@@ -7,9 +7,11 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
 import negocio.FuncionarioRN;
+import util.AuthenticationService;
 import dominio.Funcionario;
 
 @ManagedBean(name = "funcionarioBean")
@@ -18,6 +20,9 @@ import dominio.Funcionario;
 public class FuncionarioBean implements Serializable {
 
 	private static final long serialVersionUID = 2213636404760405104L;
+
+	@ManagedProperty(value = "#{authenticationService}")
+	private AuthenticationService authenticationService;
 
 	private Funcionario funcionario;
 	private List<Funcionario> funcionarios;
@@ -89,6 +94,31 @@ public class FuncionarioBean implements Serializable {
 		return null;
 	}
 
+	// --------------------------------------------------- //
+
+	public String login() {
+		boolean success = authenticationService.login(funcionario.getCpf(),
+				funcionario.getSenha());
+
+		if (!success) {
+			FacesMessage facesMessage = new FacesMessage(
+					FacesMessage.SEVERITY_ERROR, "", "CPF ou senha inválidos");
+			FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+			return "falhaLogin";
+		}
+
+		return "sucessoLogin";
+	}
+
+	public String logout() {
+		authenticationService.logout();
+		return "login";
+	}
+
+	public String getUsuarioLogado() {
+		return authenticationService.getUsuarioLogado().getNome();
+	}
+
 	// ############### Métodos Get e Set ###############
 
 	public Funcionario getFuncionario() {
@@ -125,6 +155,15 @@ public class FuncionarioBean implements Serializable {
 
 	public void setConfirmaSenha(String confirmaSenha) {
 		this.confirmaSenha = confirmaSenha;
+	}
+
+	public AuthenticationService getAuthenticationService() {
+		return authenticationService;
+	}
+
+	public void setAuthenticationService(
+			AuthenticationService authenticationService) {
+		this.authenticationService = authenticationService;
 	}
 
 }

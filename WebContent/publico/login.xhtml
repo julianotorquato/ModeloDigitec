@@ -8,105 +8,34 @@
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:p="http://primefaces.prime.com.tr/ui">
 
-<ui:composition template="/templates/template.xhtml">
+<ui:composition template="/templates/template_interno.xhtml">
 	<ui:define name="conteudo">
 	
-		<h:form prependId="false">
-			<p:growl id="msg" showDetail="true" showSummary="true"></p:growl>			
-			<p:panel header="Cadastro de Contato">
-			<p:messages/>
-				<p:fieldset>
-					<h:panelGrid id="grid" columns="3" cellspacing="5">
-						<h:outputText value="Nome: " />
-						<p:inputText id="Nome" required="true" value="#{contatoBean.contato.nome}"/>
-						<p:message for="Nome"/>
-						<h:outputText value="Celular: " />
-						<p:inputMask mask="(99)9999-9999" id="Celular" required="true" label="Celular" value="#{contatoBean.contato.celular}" />
-						<p:message for="Celular"/>
-						<h:outputText value="Data de Nascimento: " />
-						<p:calendar id="Nascimento" value="#{contatoBean.contato.nascimento}" required="true" label="Nascimento" showOn="button">
-							<f:convertDateTime pattern="dd/MM/yyyy"/>
-						</p:calendar>
-						<p:message for="Nascimento"/>
-					</h:panelGrid>
-				</p:fieldset>
-				<p:toolbar>
-					<p:toolbarGroup align="right">
-						<p:commandButton value="salvar" update="grid, msg, tableContato" action="#{contatoBean.testSave}"/>
-					</p:toolbarGroup>
-				</p:toolbar>
+		<div align="center">
+		<h:form>
+			<p:panel header="Área de Login">
+				<h:panelGroup rendered="#{!empty param.login_error}">
+					<span style="font-color:red">Erro ao efetuar o login.</span><br/>
+					<br/>
+					Motivo:#{SPRING_SECURITY_LAST_EXCEPTION.message}
+				</h:panelGroup>	
+				<form id="login" method="post" action="#{request.contextPath}/j_spring_security_check">
+				<table>
+					<tr><td>CPF: </td>
+						<td><input type='text' name='j_username'/></td><td>(somente números)</td></tr>
+					<tr><td>Senha: </td>
+						<td><input type='password' name='j_password'/></td></tr>
+					<tr><td></td>
+						<td><input type="submit" value="Entrar"/></td>
+					</tr>
+				</table>
+				<script>
+					document.getElementById("login").j_username.value = "#{SPRING_SECURITY_LAST_USERNAME}";
+				</script>
+				</form>
 			</p:panel>
 		</h:form>
-		
-		<p:spacer height="10"/>
-		
-		<h:form prependId="false">
-		<p:dataTable id="tableContato" var="contato" value="#{contatoBean.contatos}" paginator="true" rows="10" scrollable="true" >
-			<f:facet name="header">
-				Lista de Contatos
-			</f:facet>
-		
-			<p:column headerText="Código" style="width: 100px">
-				<p:cellEditor>
-					<f:facet name="output">
-						<h:outputText value="#{contato.codigo}"/>
-					</f:facet>
-					<f:facet name="input">
-						<p:inputText value="#{contato.codigo}" style="width:100%"/>
-					</f:facet>
-				</p:cellEditor>
-			</p:column>
-		
-			<p:column headerText="Nome" style="width:150px">
-				<p:cellEditor>
-					<f:facet name="output">
-						<h:outputText value="#{contato.nome}"/>
-					</f:facet>
-					<f:facet name="input">
-						<p:inputText value="#{contato.nome}" style="width:100%"/>
-					</f:facet>
-				</p:cellEditor>
-			</p:column>
-			
-			<p:column headerText="Celular" style="width:150px">
-				<p:cellEditor>
-					<f:facet name="output">
-						<h:outputText value="#{contato.celular}" />
-					</f:facet>
-					<f:facet name="input">
-						<p:inputText value="#{contato.celular}" style="width:100%"/>
-					</f:facet>	
-				</p:cellEditor>
-			</p:column>
-			
-			<p:column headerText="Nascimento" style="width:150px">
-				<p:cellEditor>
-					<f:facet name="output">
-						<h:outputText value="#{contato.nascimento}" />
-					</f:facet>
-					<f:facet name="input">
-						<p:inputText value="#{contato.nascimento}" style="width:100%"/>
-					</f:facet>
-				</p:cellEditor>
-			</p:column>
-			
-			<p:column headerText="Opção" style="width:150px">
-				<p:rowEditor/>
-			</p:column>
-		</p:dataTable>
-		
-		<p:toolbar>
-			<p:toolbarGroup align="right">
-				<h:panelGrid columns="2">
-					<h:commandLink>
-						<p:graphicImage value="/resources/imagens/pdf.png"/>
-						<p:dataExporter target="tableContato" type="pdf" fileName="contatos" excludeColumns="3"/>
-					</h:commandLink>
-				</h:panelGrid>
-			</p:toolbarGroup>
-		</p:toolbar>
-		</h:form>
-		
+		</div>
 	</ui:define>
 </ui:composition>
 </html>
