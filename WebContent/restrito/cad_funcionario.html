@@ -5,11 +5,11 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.prime.com.tr/ui"> 
-
-	<ui:composition template="/templates/template.xhtml">
-		<ui:define name="conteudo">
+      
+<ui:composition template="/templates/template.xhtml">
+	<ui:define name="conteudo">
 		
-		<h:form prependId="false">
+	<h:form prependId="false">
 			<p:growl id="msg" showDetail="true" showSummary="true"></p:growl>			
 			<p:panel header="Cadastro de Funcionário">
 			<p:messages/>
@@ -25,17 +25,25 @@
 						<p:message for="cpf"/>
 						
 						<h:outputText value="RG: " />
+						<p:inputText id="rg" required="true" label="RG" value="#{funcionarioBean.funcionario.rg}" maxlength="12" validatorMessage="Somente os 12 números">
+							<f:validateRegex pattern="([0-9]){12,12}"/>
+						</p:inputText>
+						<p:message id="rg"/>
 						
-						
-						<h:outputText value="Celular: " />
-						<p:inputMask mask="(99)9999-9999" id="Celular" required="true" label="Celular" value="#{contatoBean.contato.celular}" />
-						<p:message for="Celular"/>
 						<h:outputText value="Data de Nascimento: " />
-						<p:calendar id="Nascimento" value="#{contatoBean.contato.nascimento}" required="true" label="Nascimento" showOn="button">
+						<p:calendar id="Nascimento" value="#{funcionarioBean.funcionario.dataNascimento}" required="true" label="Nascimento" showOn="button">
 							<f:convertDateTime pattern="dd/MM/yyyy"/>
 						</p:calendar>
-						<p:message for="Nascimento"/>
+						<p:message for="Nascimento"/>	
 					</h:panelGrid>
+					
+					<p:spacer height="3"/>
+					
+					<p:fieldset legend="Endereço">
+						<h:outputText value="Rua: " />
+						
+					</p:fieldset>
+					
 				</p:fieldset>
 				<p:toolbar>
 					<p:toolbarGroup align="right">
@@ -44,9 +52,8 @@
 				</p:toolbar>
 			</p:panel>
 		</h:form>
+
 		
-		<p:spacer height="10"/>
-				
-		</ui:define>
-	</ui:composition> 
+	</ui:define>
+</ui:composition>	
 </html>
