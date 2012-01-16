@@ -56,6 +56,7 @@ public class FuncionarioBean implements Serializable {
 			context.addMessage(null, facesMessage);
 			return null;
 		}
+
 		FuncionarioRN funcionarioRN = new FuncionarioRN();
 		funcionarioRN.salvar(this.funcionario);
 

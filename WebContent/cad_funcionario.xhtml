@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+<ui:composition template="/templates/template.xhtml">
+	<ui:define name="head">
+		<script>  
+		function moeda(z){
+			v = z.value;
+			v = v.replace(/\D/g,"")  //permite digitar apenas números
+			v = v.replace(/[0-9]{12}/,"inválido")   //limita pra máximo 999.999.999,99
+			v = v.replace(/(\d{1})(\d{8})$/,"$1.$2")  //coloca ponto antes dos últimos 8 digitos
+			v = v.replace(/(\d{1})(\d{5})$/,"$1.$2")  //coloca ponto antes dos últimos 5 digitos
+			v = v.replace(/(\d{1})(\d{1,2})$/,"$1,$2")        //coloca virgula antes dos últimos 2 digitos
+			z.value = 'R$ ' + v;
+		}
+    	</script>  
+	</ui:define>
+	
+	<ui:define name="conteudo">
+	
+	<h:form id="formFuncionario">
+		<p:messages/>
+		<h:inputHidden value="#{funcionarioBean.funcionario.codigo}" />
+		<h:inputHidden value="#{funcionarioBean.funcionario.ativo}" />
+		<h:inputHidden value="#{funcionarioBean.destinoSalvar}" />
+		
+		<div align="center">
+		<h:outputText value="(Os campos em vermelho são obrigatórios)" style="color:red; font-size:11px;"/>
+		</div>
+		
+			<p:fieldset legend="Dados Pessoais" toggleable="true" toggleSpeed="400">
+				<h:panelGrid id="gridDadosPessoais" columns="2" cellspacing="5">
+					<h:outputText value="Nome: " style="color:red;" />
+					<p:inputText id="nome" required="true" label="Nome" value="#{funcionarioBean.funcionario.nome}" requiredMessage="Este é um campo obrigatório."/>
+						
+					<h:outputText value="CPF: " style="color:red;"/>
+					<p:inputMask mask="999.999.999-99" id="cpf" required="true" label="CPF" value="#{funcionarioBean.funcionario.cpf}" requiredMessage="Este é um campo obrigatório."/>
+						
+					<h:outputText value="RG: " style="color:red;"/>
+					<p:keyboard id="rg" password="false" keypadOnly="true" required="true" label="RG" value="#{funcionarioBean.funcionario.rg}" maxlength="12" validatorMessage="Somente os 12 números">
+						<f:validateRegex pattern="([0-9]){12,12}"/>
+					</p:keyboard>
+						
+					<h:outputText value="Data de Nascimento: " style="color:red;"/>
+					<p:calendar id="nascimento" value="#{funcionarioBean.funcionario.dataNascimento}" required="true" label="Nascimento" showOn="button" requiredMessage="Este é um campo obrigatório.">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</p:calendar>
+				</h:panelGrid>
+			</p:fieldset>
+			
+			<p:spacer height="3"/>
+			
+			<p:fieldset legend="Endereço" toggleable="true" toggleSpeed="400">
+				<h:panelGrid id="gridEndereco" columns="2" cellspacing="5">
+					<h:outputText value="Rua: " style="color:red;"/>
+					<p:inputText id="rua" required="true" label="Rua" value="#{funcionarioBean.funcionario.rua}" size="50" requiredMessage="Este é um campo obrigatório."/>
+							
+					<h:outputText value="Bairro: " style="color:red;"/>
+					<p:inputText id="bairro" required="true" label="Bairro" value="#{funcionarioBean.funcionario.bairro}" size="50" requiredMessage="Este é um campo obrigatório."/>
+							
+					<h:outputText value="Complemento: " />
+					<p:inputText id="complemento" value="#{funcionarioBean.funcionario.complementoEndereco}" size="50" requiredMessage="Este é um campo obrigatório."/>
+														
+					<h:outputText value="Cidade: " style="color:red;"/>
+					<p:inputText id="cidade" size="50"/>
+													
+					<h:outputText value="Estado: " style="color:red;"/>
+					<p:inputText id="estado" size="50"/>
+				</h:panelGrid>
+			</p:fieldset>	
+			
+			<p:spacer height="3"/>
+			
+			<p:fieldset legend="Dados Profissionais" toggleable="true" toggleSpeed="400">
+				<h:panelGrid id="gridDadosProfissionais" columns="2" cellspacing="5">
+					<h:outputText value="Data de Admissão: " style="color:red;"/>
+					<p:calendar id="admissao" value="#{funcionarioBean.funcionario.dataAdmissao}" required="true" label="Data" showOn="button" requiredMessage="Este é um campo obrigatório.">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</p:calendar>
+						
+					<h:outputText value="Salário Atual: " style="color:red;"/>
+					<p:keyboard id="salario" password="false" required="true" keypadOnly="true" label="Salário" value="#{funcionarioBean.funcionario.salario}" requiredMessage="Informe o valor do Salário R$">
+						<f:convertNumber minFractionDigits="2"/>
+					</p:keyboard>
+				</h:panelGrid>
+			</p:fieldset>
+			
+			<p:spacer height="3"/>
+			
+			<p:fieldset legend="Formas de Contato" toggleable="true" toggleSpeed="400">
+				<h:panelGrid id="gridFormaContato" columns="2" cellspacing="5">
+					<h:outputText value="Fone Celular: " />
+					<p:inputMask id="celular" mask="(99)9999-9999" value="#{funcionarioBean.funcionario.foneCelular}"/>
+						
+					<h:outputText value="Fone Residencial: " />
+					<p:inputMask id="residencial" mask="(99)9999-9999" value="#{funcionarioBean.funcionario.foneResidencial}" />
+					
+					<h:outputText value="E-mail: " />
+					<p:inputText id="email" value="#{funcionarioBean.funcionario.email}" size="50"/>
+				</h:panelGrid>
+			</p:fieldset>
+			
+			<p:spacer height="3"/>
+			
+			<p:fieldset legend="Dados para Sistema" toggleable="true" toggleSpeed="400">
+				<h:panelGrid id="gridSistema" columns="2" cellspacing="5">
+					<h:outputText value="Senha: " style="color:red;"/>
+					<p:keyboard id="senha" password="true" keypadOnly="true" required="true" label="Senha" value="#{funcionarioBean.funcionario.senha}" maxlength="10" validatorMessage="Deve ter no mínimo 5 e no máximo 15 caracters e só pode ter os simbolos '.' e '_'.">
+						<f:validateRegex pattern="([a-z]|[0-9]|[.]|[_]){5,10}"/>
+					</p:keyboard>
+						
+					<h:outputText value="Confirmar Senha: " style="color:red;"/>
+					<p:keyboard id="confirmaSenha" password="true" keypadOnly="true" value="#{funcionarioBean.confirmaSenha}" maxlength="10"/>
+				</h:panelGrid>
+			</p:fieldset>
+			
+			<p:spacer height="3"/>
+			
+			<p:toolbar>
+				<p:toolbarGroup align="right">
+					<p:commandButton value="salvar" update="formFuncionario, gridDadosPessoais, gridEndereco, gridDadosProfissionais, gridFormaContato, gridSistema" action="#{funcionarioBean.salvar}"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+	</h:form>
+	</ui:define>
+</ui:composition>		
+</html>
