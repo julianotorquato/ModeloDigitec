@@ -19,7 +19,9 @@
 			<p:fieldset legend="Cadastro de Acesso" toggleable="true" toggleSpeed="400">
 					<h:panelGrid id="grid" columns="3" cellspacing="5">
 					<h:outputText value="Login: " style="color:red;"/>
-					<p:inputText id="login" required="true" label="Login" value="#{usuarioBean.usuario.login}" requiredMessage="Login é um campo obrigatório."/>
+					<p:inputText id="login" required="true" label="Login" maxlength="15" value="#{usuarioBean.usuario.login}" requiredMessage="Este login já existe!" validatorMessage="Login deve ter no mínimo 5 e no máximo 15 caracters e só pode ter os simbolos '.' e '_'.">
+						<f:validateRegex pattern="([a-z]|[0-9]|[.]|[_]){5,15}"/>
+					</p:inputText>
 					<p:message for="login"/>
 						
 					
@@ -30,7 +32,7 @@
 					<p:message for="senha"/>
 						
 					<h:outputText value="Confirmar Senha: " style="color:red;"/>
-					<p:password id="confirmaSenha" required="true" label="Confirmar Senha" feedback="true" minLength="5"  value="#{usuarioBean.confirmaSenha}" maxlength="10" validatorMessage="O campo de confirmação é obrigatório"/>
+					<p:password id="confirmaSenha" required="true" label="Confirmar Senha" feedback="true" minLength="5"  value="#{usuarioBean.confirmaSenha}" maxlength="10" validatorMessage="O campo de confirmação é obrigatório" requiredMessage="A senha não foi informada corretamente"/>
 					<p:message for="confirmaSenha"/>
 				</h:panelGrid>
 			</p:fieldset>

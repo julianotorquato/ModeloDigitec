@@ -5,16 +5,16 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:sec="http://www.springframework.org/security/facelets/tags">
 
-	<ui:composition template="/templates/menu_interno.xhtml">
+	<ui:composition template="/templates/menu_sistema.xhtml">
 		<ui:define name="conteudo">
 
 		Usuário logado #{request.remoteUser}
 
 <h:form>
 
-<!--	<sec:ifAnyGranted roles="ROLE_ADMINISTRADOR">-->
-<!--		<h:commandButton value="Administração" action="/admin/controle_acesso"  />-->
-<!--	</sec:ifAnyGranted>-->
+	<sec:ifAnyGranted roles="ROLE_ADMINISTRADOR">
+		<h:commandButton value="Administração" action="/admin/controle_acesso"  />
+	</sec:ifAnyGranted>
 	Funcionou!!!!!
 	<input type="button" value="Logout" 
 	onclick="document.location='#{request.contextPath}/j_spring_security_logout'"/>

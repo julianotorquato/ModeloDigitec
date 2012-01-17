@@ -33,7 +33,7 @@
 					<p:menuitem value="Serviço"/>
 					<p:menuitem value="Cliente" />
 					<p:menuitem value="Cargo"/>
-					<p:menuitem value="Funcionário"/>
+					<p:menuitem value="Funcionário" url="funcionario.jsf" rendered="#{sec:ifAnyGranted('ROLE_USUARIO')}"/>
 					<p:menuitem value="Produto"/>
 					<p:menuitem value="Fornecedor"/>	
 				</p:submenu>

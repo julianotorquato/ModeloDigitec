@@ -31,7 +31,7 @@ public class UsuarioBean {
 		this.destinoSalvar = "usuarioSucesso";
 		this.usuario = new Usuario();
 		this.usuario.setAtivo(true);
-		return "usuario";
+		return "cad_usuario";
 	}
 
 	public String atribuiPermissao(Usuario usuario, String permissao) {
@@ -48,29 +48,56 @@ public class UsuarioBean {
 
 	public String editar() {
 		this.confirmaSenha = this.usuario.getSenha();
-		return "/publico/usuario";
+		return "/publico/cad_usuario";
 	}
 
 	// Verifica se a senha inserida pelo usuário é a mesma da confirmação e
 	// habilita salvar se correto
 	public String salvar() {
-		// FacesContext context = FacesContext.getCurrentInstance();
+		try {
+			String senha = this.usuario.getSenha();
+			String login = this.usuario.getLogin();
+			UsuarioRN usuarioRN = new UsuarioRN();
 
-		String senha = this.usuario.getSenha();
+			if (!senha.equals(confirmaSenha)) {
 
-		if (!senha.equals(confirmaSenha)) {
-			// FacesMessage facesMessage = new FacesMessage(
-			// "A senha não foi confirmada corretamente!");
-			// context.addMessage(null, facesMessage);
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Erro", "A senha não foi confirmada corretamente!");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Erro", "A senha não foi confirmada corretamente!");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				return null;
+			}
+
+			// if (!usuarioRN.buscarPorLogin(usuario.getLogin()).equals(
+			// this.usuario.getLogin())) {
+			// FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+			// "Erro", "Este login já foi registrado. Tente outro.");
+			// FacesContext.getCurrentInstance().addMessage(null, msg);
+			// System.out.println("Encontrou um login existente!!!");
+			// usuario = new Usuario();
+			// confirmaSenha = "";
+			// return null;
+			//
+			// }
+
+			if (usuarioRN.buscarPorLogin(usuario.getLogin()).toString() == login) {
+				usuarioRN.salvar(this.usuario);
+				System.out.println("Usuário salvo com sucesso!!!");
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Sucesso", "O Acesso " + usuario.getLogin()
+								+ " foi registrado!!");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				usuario = new Usuario();
+
+				return this.destinoSalvar;
+			}
+
+			return this.destinoSalvar;
+		} catch (Exception e) {
+			System.out.println("Erro: " + e.getMessage());
 			return null;
 		}
-		UsuarioRN usuarioRN = new UsuarioRN();
-		usuarioRN.salvar(this.usuario);
 
-		return this.destinoSalvar;
+		// return this.destinoSalvar;
 	}
 
 	public String excluir() {
