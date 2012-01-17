@@ -2,21 +2,15 @@ package dominio;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "funcionario")
@@ -33,28 +27,15 @@ public class Funcionario implements Serializable {
 	private String nome;
 
 	@org.hibernate.annotations.NaturalId
-	@Column(name = "CPF_FUNCIONARIO", nullable = false, length = 11)
+	@Column(name = "CPF_FUNCIONARIO", nullable = false, length = 14)
 	private String cpf;
 
 	@Column(name = "RG_FUNCIONARIO", nullable = false, length = 13)
 	private String rg;
 
-	@Column(name = "SALARIO_FUNCIONARIO", nullable = false)
-	private Double salario;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "DATA_ADMISSAO_FUNCIONARIO", nullable = false)
-	private Date dataAdmissao;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "DATA_CADASTRO_FUNCIONARIO", nullable = false)
-	private Date dataCadastro;
-
-	@Column(name = "FONE_CELULAR_FUNCIONARIO", nullable = true, length = 13)
-	private String foneCelular;
-
-	@Column(name = "FONE_RESIDENCIAL_FUNCIONARIO", nullable = true, length = 13)
-	private String foneResidencial;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "DATA_NASCIMENTO_FUNCIONARIO", nullable = false)
+	private Date dataNascimento;
 
 	@Column(name = "RUA_FUNCIONARIO", nullable = false, length = 100)
 	private String rua;
@@ -65,24 +46,25 @@ public class Funcionario implements Serializable {
 	@Column(name = "COMPLEMENTO_FUNCIONARIO", nullable = true, length = 50)
 	private String complementoEndereco;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "DATA_NASCIMENTO_FUNCIONARIO", nullable = false)
-	private Date dataNascimento;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "DATA_ADMISSAO_FUNCIONARIO", nullable = false)
+	private Date dataAdmissao;
 
-	@Column(name = "SENHA_FUNCIONARIO", nullable = true, length = 10)
-	private String senha;
+	@Column(name = "SALARIO_FUNCIONARIO", nullable = false)
+	private Double salario;
+
+	@Column(name = "FONE_CELULAR_FUNCIONARIO", nullable = true, length = 13)
+	private String foneCelular;
+
+	@Column(name = "FONE_RESIDENCIAL_FUNCIONARIO", nullable = true, length = 13)
+	private String foneResidencial;
 
 	@Column(name = "EMAIL_FUNCIONARIO", nullable = true, length = 100)
 	private String email;
 
-	@Column(name = "STATUS_FUNCIONARIO", nullable = false)
-	private boolean ativo;
-
-	@ElementCollection(targetClass = String.class)
-	@JoinTable(name = "usuario_permissao", uniqueConstraints = { @UniqueConstraint(columnNames = {
-			"usuario", "permissao" }) }, joinColumns = @JoinColumn(name = "usuario"))
-	@Column(name = "permissao", length = 50)
-	private Set<String> permissao = new HashSet<String>();
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "DATA_CADASTRO_FUNCIONARIO", nullable = false)
+	private Date dataCadastro;
 
 	// ################# Métodos Get e Set #################
 
@@ -118,44 +100,12 @@ public class Funcionario implements Serializable {
 		this.rg = rg;
 	}
 
-	public Double getSalario() {
-		return salario;
+	public Date getDataNascimento() {
+		return dataNascimento;
 	}
 
-	public void setSalario(Double salario) {
-		this.salario = salario;
-	}
-
-	public Date getDataAdmissao() {
-		return dataAdmissao;
-	}
-
-	public void setDataAdmissao(Date dataAdmissao) {
-		this.dataAdmissao = dataAdmissao;
-	}
-
-	public Date getDataCadastro() {
-		return dataCadastro;
-	}
-
-	public void setDataCadastro(Date dataCadastro) {
-		this.dataCadastro = dataCadastro;
-	}
-
-	public String getFoneCelular() {
-		return foneCelular;
-	}
-
-	public void setFoneCelular(String foneCelular) {
-		this.foneCelular = foneCelular;
-	}
-
-	public String getFoneResidencial() {
-		return foneResidencial;
-	}
-
-	public void setFoneResidencial(String foneResidencial) {
-		this.foneResidencial = foneResidencial;
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 	public String getRua() {
@@ -182,20 +132,36 @@ public class Funcionario implements Serializable {
 		this.complementoEndereco = complementoEndereco;
 	}
 
-	public Date getDataNascimento() {
-		return dataNascimento;
+	public Date getDataAdmissao() {
+		return dataAdmissao;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
+	public void setDataAdmissao(Date dataAdmissao) {
+		this.dataAdmissao = dataAdmissao;
 	}
 
-	public String getSenha() {
-		return senha;
+	public Double getSalario() {
+		return salario;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setSalario(Double salario) {
+		this.salario = salario;
+	}
+
+	public String getFoneCelular() {
+		return foneCelular;
+	}
+
+	public void setFoneCelular(String foneCelular) {
+		this.foneCelular = foneCelular;
+	}
+
+	public String getFoneResidencial() {
+		return foneResidencial;
+	}
+
+	public void setFoneResidencial(String foneResidencial) {
+		this.foneResidencial = foneResidencial;
 	}
 
 	public String getEmail() {
@@ -206,20 +172,12 @@ public class Funcionario implements Serializable {
 		this.email = email;
 	}
 
-	public boolean isAtivo() {
-		return ativo;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
-	}
-
-	public Set<String> getPermissao() {
-		return permissao;
-	}
-
-	public void setPermissao(Set<String> permissao) {
-		this.permissao = permissao;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	@Override

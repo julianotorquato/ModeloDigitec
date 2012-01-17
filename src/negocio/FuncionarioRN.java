@@ -1,5 +1,6 @@
 package negocio;
 
+import java.util.Date;
 import java.util.List;
 
 import util.DAOFactory;
@@ -18,14 +19,9 @@ public class FuncionarioRN {
 		return this.funcionarioDAO.buscarPorCpf(cpf);
 	}
 
-	public void salvar(Funcionario funcionario) {
-		Integer codigo = funcionario.getCodigo();
-		if (codigo == null || codigo == 0) {
-			funcionario.getPermissao().add("ROLE_USUARIO");
-			this.funcionarioDAO.salvar(funcionario);
-		} else {
-			this.funcionarioDAO.atualizar(funcionario);
-		}
+	public void salvarOuAtualizar(Funcionario funcionario) {
+		funcionario.setDataCadastro(new Date());
+		this.funcionarioDAO.salvarOuAtualizar(funcionario);
 	}
 
 	public void excluir(Funcionario funcionario) {

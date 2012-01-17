@@ -16,14 +16,8 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 	}
 
 	@Override
-	public void salvar(Funcionario funcionario) {
-		session.save(funcionario);
-	}
-
-	@Override
-	public void atualizar(Funcionario funcionario) {
-		session.update(funcionario);
-
+	public void salvarOuAtualizar(Funcionario funcionario) {
+		session.saveOrUpdate(funcionario);
 	}
 
 	@Override

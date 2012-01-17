@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+<ui:composition template="/templates/template.xhtml">
+	<ui:define name="conteudo">
+	
+	<h:form prependId="false">
+		<p:growl id="msg" showDetail="true" showSummary="true"></p:growl>
+		<p:messages/>
+		
+		<div align="center">
+		<h:outputText value="(Os campos em vermelho são obrigatórios)" style="color:red; font-size:11px;"/>
+		</div>
+		
+			<p:fieldset legend="Dados Pessoais" toggleable="true" toggleSpeed="400">
+				<h:panelGrid id="gridDadosPessoais" columns="3" cellspacing="5">
+					<h:outputText value="Nome: " style="color:red;" />
+					<p:inputText id="nome" required="true" label="Nome" value="#{funcionarioBean.funcionario.nome}" requiredMessage="Nome é um campo obrigatório."/>
+					<p:message for="nome"/>
+						
+					<h:outputText value="CPF: " style="color:red;"/>
+					<p:inputMask id="cpf" required="true" label="CPF" mask="999.999.999-99" value="#{funcionarioBean.funcionario.cpf}" requiredMessage="CPF é um campo obrigatório."/>
+					<p:message for="cpf"/>
+						
+					<h:outputText value="RG: " style="color:red;"/>
+					<p:inputMask id="rg" required="true" label="RG" mask="999999999999" value="#{funcionarioBean.funcionario.rg}" maxlength="12" requiredMessage="RG é um campo obrigatório." validatorMessage="Somente os 12 números">
+						<f:validateRegex pattern="([0-9]){12,12}"/>
+					</p:inputMask>
+					<p:message for="rg"/>
+					
+					<h:outputText value="Data de Nascimento: " style="color:red;"/>
+					<p:calendar id="nascimento" required="true" label="Nascimento" value="#{funcionarioBean.funcionario.dataNascimento}"  showOn="button" requiredMessage="Data de Nascimento é um campo obrigatório.">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</p:calendar>
+					<p:message for="nascimento"/>
+				</h:panelGrid>
+			</p:fieldset>
+					
+			<p:spacer height="3"/>
+			
+			<p:fieldset legend="Endereço" toggleable="true" toggleSpeed="400">
+				<h:panelGrid id="gridEndereco" columns="3" cellspacing="5">
+					<h:outputText value="Rua: " style="color:red;" />
+					<p:inputText id="rua" required="true" label="Rua" value="#{funcionarioBean.funcionario.rua}" size="50" requiredMessage="Rua é um campo obrigatório."/>
+					<p:message for="rua"/>
+					
+					<h:outputText value="Bairro: " style="color:red;"/>
+					<p:inputText id="bairro" required="true" label="Bairro" value="#{funcionarioBean.funcionario.bairro}" size="50" requiredMessage="Bairro é um campo obrigatório."/>
+					<p:message for="bairro"/>
+					
+					<h:outputText value="Complemento: " />
+					<p:inputText id="complemento" required="false" label="Bairro" value="#{funcionarioBean.funcionario.complementoEndereco}" size="50" />
+					<p:message for="complemento"/>
+				</h:panelGrid>
+			</p:fieldset>
+			
+			<p:spacer height="3"/>
+			
+			<p:fieldset legend="Dados Profissionais" toggleable="true" toggleSpeed="400">
+				<h:panelGrid id="gridProf" columns="3" cellspacing="5">
+					<h:outputText value="Data de Admissão: " style="color:red;"/>
+					<p:calendar id="admissao" required="true" label="Data de Admissão" value="#{funcionarioBean.funcionario.dataAdmissao}" showOn="button" requiredMessage="Data de Admissão é um campo obrigatório.">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</p:calendar>
+					<p:message for="admissao"/>
+						
+					<h:outputText value="Salário Atual: " style="color:red;"/>
+					<p:inputMask id="salario" required="true" label="Salário" mask="9.999,99" value="#{funcionarioBean.funcionario.salario}" requiredMessage="Informe o valor do Salário R$" >
+						<f:convertNumber minFractionDigits="2"/>
+					</p:inputMask>
+					<p:message for="salario"/>
+				</h:panelGrid>
+			</p:fieldset>
+			
+			<p:spacer height="3"/>
+			
+			<p:fieldset legend="Formas de Contato" toggleable="true" toggleSpeed="400">
+				<h:panelGrid id="gridContato" columns="3" cellspacing="5">
+					<h:outputText value="Fone Celular: " />
+					<p:inputMask id="celular" required="false" label="Fone Celular" mask="(99)9999-9999" value="#{funcionarioBean.funcionario.foneCelular}"/>
+					<p:message for="celular"/>	
+					
+					<h:outputText value="Fone Residencial: " />
+					<p:inputMask id="residencial" required="false" label="Fone Residencial" mask="(99)9999-9999" value="#{funcionarioBean.funcionario.foneResidencial}" />
+					<p:message for="residencial"/>	
+					
+					<h:outputText value="E-mail: " />
+					<p:inputText id="email" required="false" label="E-mail" value="#{funcionarioBean.funcionario.email}" size="50"/>
+					<p:message for="email"/>
+				</h:panelGrid>
+			</p:fieldset>
+			
+			<p:toolbar>
+				<p:toolbarGroup align="right">
+					<p:commandButton value="salvar" update="msg, gridDadosPessoais, gridEndereco, gridProf, gridContato" action="#{funcionarioBean.salvar}"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+	</h:form>
+	</ui:define>
+</ui:composition>		
+</html>

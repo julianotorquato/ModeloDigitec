@@ -21,13 +21,13 @@
 		<authentication-provider>
 		
 			<jdbc-user-service data-source-ref="agendaDataSource"
-				authorities-by-username-query="SELECT f.cpf, p.permissao 
-											 FROM funcionario f, usuario_permissao p 
-											WHERE f.codigo = p.usuario 
-											  AND f.cpf = ?"
-				users-by-username-query="SELECT cpf, senha, ativo 
-									   FROM funcionario 
-									  WHERE cpf = ?" />
+				authorities-by-username-query="SELECT u.login, p.permissao 
+											 FROM usuario u, usuario_permissao p 
+											WHERE u.codigo = p.usuario 
+											  AND u.login = ?"
+				users-by-username-query="SELECT login, senha, ativo 
+									   FROM usuario 
+									  WHERE login = ?" />
 		</authentication-provider>		
 	</authentication-manager>
 </b:beans>

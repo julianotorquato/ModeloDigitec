@@ -27,6 +27,7 @@
 
   <mapping class="dominio.Contato"/> 
   <mapping class="dominio.Funcionario"/> 
+  <mapping class="dominio.Usuario"/>
    
     </session-factory>
 </hibernate-configuration>

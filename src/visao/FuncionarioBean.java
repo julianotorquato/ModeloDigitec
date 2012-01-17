@@ -7,11 +7,9 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
 import negocio.FuncionarioRN;
-import util.AuthenticationService;
 import dominio.Funcionario;
 
 @ManagedBean(name = "funcionarioBean")
@@ -21,58 +19,34 @@ public class FuncionarioBean implements Serializable {
 
 	private static final long serialVersionUID = 2213636404760405104L;
 
-	@ManagedProperty(value = "#{authenticationService}")
-	private AuthenticationService authenticationService;
-
-	private Funcionario funcionario;
+	private Funcionario funcionario = new Funcionario();
 	private List<Funcionario> funcionarios;
-	private String destinoSalvar;
-	private String confirmaSenha;
 
 	// ############### Métodos de Ação ###############
-
-	public String novo() {
-		this.destinoSalvar = "funcionarioSucesso";
-		this.funcionario = new Funcionario();
-		this.funcionario.setAtivo(true);
-		return "funcionario";
-	}
-
-	public String editar() {
-		this.confirmaSenha = this.funcionario.getSenha();
-		return "/restrito/cad_funcionario";
-	}
 
 	// Verifica se a senha inserida pelo usuário é a mesma da confirmação e
 	// habilita salvar se correto
 	public String salvar() {
-		FacesContext context = FacesContext.getCurrentInstance();
+		try {
 
-		String senha = this.funcionario.getSenha();
+			FuncionarioRN funcionarioRN = new FuncionarioRN();
+			funcionarioRN.salvarOuAtualizar(funcionario);
 
-		if (!senha.equals(confirmaSenha)) {
-			FacesMessage facesMessage = new FacesMessage(
-					"A senha não foi confirmada corretamente!");
-			context.addMessage(null, facesMessage);
-			return null;
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Sucesso", funcionario.getNome()
+							+ " cadastrado com sucesso!");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			System.out.println("Nome do funcionario: " + funcionario.getNome());
+			System.out.println("CPF do funcionario: " + funcionario.getCpf());
+			funcionario = new Funcionario();
+		} catch (Exception e) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro", "Não foi possível salvar contato: "
+							+ funcionario.getNome());
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 
-		FuncionarioRN funcionarioRN = new FuncionarioRN();
-		funcionarioRN.salvar(this.funcionario);
-
-		return this.destinoSalvar;
-	}
-
-	public String atribuiPermissao(Funcionario funcionario, String permissao) {
-		this.funcionario = funcionario;
-		java.util.Set<String> permissoes = this.funcionario.getPermissao();
-		if (permissoes.contains(permissao)) {
-			permissoes.remove(permissao);
-		} else {
-			permissoes.add(permissao);
-		}
-
-		return null;
+		return "";
 	}
 
 	public String excluir() {
@@ -80,44 +54,6 @@ public class FuncionarioBean implements Serializable {
 		funcionarioRN.excluir(this.funcionario);
 		this.funcionarios = null;
 		return null;
-	}
-
-	public String ativar() {
-		if (this.funcionario.isAtivo()) {
-			this.funcionario.setAtivo(false);
-			System.out.println("Funcionário ativo!");
-		} else {
-			this.funcionario.setAtivo(true);
-			System.out.println("Funcionário inativo!");
-		}
-		FuncionarioRN funcionarioRN = new FuncionarioRN();
-		funcionarioRN.salvar(this.funcionario);
-		return null;
-	}
-
-	// --------------------------------------------------- //
-
-	public String login() {
-		boolean success = authenticationService.login(funcionario.getCpf(),
-				funcionario.getSenha());
-
-		if (!success) {
-			FacesMessage facesMessage = new FacesMessage(
-					FacesMessage.SEVERITY_ERROR, "", "CPF ou senha inválidos");
-			FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-			return "falhaLogin";
-		}
-
-		return "sucessoLogin";
-	}
-
-	public String logout() {
-		authenticationService.logout();
-		return "login";
-	}
-
-	public String getUsuarioLogado() {
-		return authenticationService.getUsuarioLogado().getNome();
 	}
 
 	// ############### Métodos Get e Set ###############
@@ -140,31 +76,6 @@ public class FuncionarioBean implements Serializable {
 
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
-	}
-
-	public String getDestinoSalvar() {
-		return destinoSalvar;
-	}
-
-	public void setDestinoSalvar(String destinoSalvar) {
-		this.destinoSalvar = destinoSalvar;
-	}
-
-	public String getConfirmaSenha() {
-		return confirmaSenha;
-	}
-
-	public void setConfirmaSenha(String confirmaSenha) {
-		this.confirmaSenha = confirmaSenha;
-	}
-
-	public AuthenticationService getAuthenticationService() {
-		return authenticationService;
-	}
-
-	public void setAuthenticationService(
-			AuthenticationService authenticationService) {
-		this.authenticationService = authenticationService;
 	}
 
 }

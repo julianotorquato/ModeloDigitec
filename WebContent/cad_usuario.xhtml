@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+<ui:composition template="/templates/template.xhtml"> 
+	<ui:define name="conteudo">
+	
+	<h:form prependId="false">
+		<p:growl id="msg" showDetail="true" showSummary="true"></p:growl>
+		<p:messages/>
+		<h:inputHidden value="#{usuarioBean.usuario.codigo}" />
+		<h:inputHidden value="#{usuarioBean.usuario.ativo}" />
+		<h:inputHidden value="#{usuarioBean.destinoSalvar}" />
+		
+			<p:fieldset legend="Cadastro de Acesso" toggleable="true" toggleSpeed="400">
+					<h:panelGrid id="grid" columns="3" cellspacing="5">
+					<h:outputText value="Login: " style="color:red;"/>
+					<p:inputText id="login" required="true" label="Login" value="#{usuarioBean.usuario.login}" requiredMessage="Login é um campo obrigatório."/>
+					<p:message for="login"/>
+						
+					
+					<h:outputText value="Senha: " style="color:red;"/>
+					<p:password id="senha" required="true" label="Senha" feedback="true" minLength="5" value="#{usuarioBean.usuario.senha}" maxlength="10" validatorMessage="Deve ter no mínimo 5 e no máximo 10 caracters e só pode ter os simbolos '.' e '_'.">
+						<f:validateRegex pattern="([a-z]|[0-9]|[.]|[_]){5,10}"/>
+					</p:password>
+					<p:message for="senha"/>
+						
+					<h:outputText value="Confirmar Senha: " style="color:red;"/>
+					<p:password id="confirmaSenha" required="true" label="Confirmar Senha" feedback="true" minLength="5"  value="#{usuarioBean.confirmaSenha}" maxlength="10" validatorMessage="O campo de confirmação é obrigatório"/>
+					<p:message for="confirmaSenha"/>
+				</h:panelGrid>
+			</p:fieldset>
+			
+			<p:spacer height="3"/>
+			
+			<p:toolbar>
+				<p:toolbarGroup align="right">
+					<p:commandButton value="salvar" update="grid" action="#{usuarioBean.salvar}"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+	</h:form>
+	</ui:define>
+</ui:composition>		
+</html>

@@ -12,7 +12,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import dominio.Funcionario;
+import dominio.Usuario;
 
 @Component
 public class AuthenticationService {
@@ -42,9 +42,9 @@ public class AuthenticationService {
 		invalidateSession();
 	}
 
-	public Funcionario getUsuarioLogado() {
-		return (Funcionario) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
+	public Usuario getUsuarioLogado() {
+		return (Usuario) SecurityContextHolder.getContext().getAuthentication()
+				.getPrincipal();
 	}
 
 	private void invalidateSession() {

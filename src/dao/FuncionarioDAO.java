@@ -6,9 +6,7 @@ import dominio.Funcionario;
 
 public interface FuncionarioDAO {
 
-	public void salvar(Funcionario funcionario);
-
-	public void atualizar(Funcionario funcionario);
+	public void salvarOuAtualizar(Funcionario funcionario);
 
 	public void excluir(Funcionario funcionario);
 
