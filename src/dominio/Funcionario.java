@@ -2,15 +2,21 @@ package dominio;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "funcionario")
@@ -65,6 +71,18 @@ public class Funcionario implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "DATA_CADASTRO_FUNCIONARIO", nullable = false)
 	private Date dataCadastro;
+
+	@Column(name = "STATUS_FUNCIONARIO", nullable = false)
+	private boolean ativo;
+
+	@Column(name = "SENHA_FUNCIONARIO", nullable = false, length = 10)
+	private String senha;
+
+	@ElementCollection(targetClass = String.class)
+	@JoinTable(name = "funcionario_permissao", uniqueConstraints = { @UniqueConstraint(columnNames = {
+			"USUARIO_FUNCIONARIO", "PERMISSAO" }) }, joinColumns = @JoinColumn(name = "USUARIO_FUNCIONARIO"))
+	@Column(name = "PERMISSAO", length = 50)
+	private Set<String> permissao = new HashSet<String>();
 
 	// ################# Métodos Get e Set #################
 
@@ -178,6 +196,30 @@ public class Funcionario implements Serializable {
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public Set<String> getPermissao() {
+		return permissao;
+	}
+
+	public void setPermissao(Set<String> permissao) {
+		this.permissao = permissao;
 	}
 
 	@Override

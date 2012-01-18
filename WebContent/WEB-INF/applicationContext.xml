@@ -4,9 +4,9 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-	<bean id="agendaDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+	<bean id="digitecDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName">
-			<value>java:comp/env/jdbc/AgendaDB</value>
+			<value>java:comp/env/jdbc/DigitecDB</value>
 		</property>
 	</bean> 	
 </beans>

@@ -7,7 +7,7 @@
                         http://www.springframework.org/schema/security 
                         http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 	<http>
-
+		<intercept-url pattern="/vip/**" access="ROLE_USUARIO_VIP"/>
 		<intercept-url pattern="/admin/**" access="ROLE_ADMINISTRADOR" />
 		<intercept-url pattern="/restrito/**" access="ROLE_USUARIO" />
 		<form-login login-page="/publico/login.jsf"
@@ -20,14 +20,14 @@
 	<authentication-manager>
 		<authentication-provider>
 		
-			<jdbc-user-service data-source-ref="agendaDataSource"
-				authorities-by-username-query="SELECT u.login, p.permissao 
-											 FROM usuario u, usuario_permissao p 
-											WHERE u.codigo = p.usuario 
-											  AND u.login = ?"
-				users-by-username-query="SELECT login, senha, ativo 
-									   FROM usuario 
-									  WHERE login = ?" />
+			<jdbc-user-service data-source-ref="digitecDataSource"
+				authorities-by-username-query="SELECT f.CPF_FUNCIONARIO, p.PERMISSAO 
+											 FROM funcionario f, funcionario_permissao p 
+											WHERE f.ID_FUNCIONARIO = p.USUARIO_FUNCIONARIO 
+											  AND f.CPF_FUNCIONARIO = ?"
+				users-by-username-query="SELECT CPF_FUNCIONARIO, SENHA_FUNCIONARIO, STATUS_FUNCIONARIO 
+									   FROM funcionario 
+									  WHERE CPF_FUNCIONARIO = ?" />
 		</authentication-provider>		
 	</authentication-manager>
 </b:beans>

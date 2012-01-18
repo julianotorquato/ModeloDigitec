@@ -19,9 +19,19 @@ public class FuncionarioRN {
 		return this.funcionarioDAO.buscarPorCpf(cpf);
 	}
 
+	public Funcionario carregar(Integer codigo) {
+		return this.funcionarioDAO.carregar(codigo);
+	}
+
 	public void salvarOuAtualizar(Funcionario funcionario) {
 		funcionario.setDataCadastro(new Date());
-		this.funcionarioDAO.salvarOuAtualizar(funcionario);
+		Integer codigo = funcionario.getCodigo();
+		if (codigo == null || codigo == 0) {
+			funcionario.getPermissao().add("ROLE_USUARIO");
+			this.funcionarioDAO.salvar(funcionario);
+		} else {
+			this.funcionarioDAO.atualizar(funcionario);
+		}
 	}
 
 	public void excluir(Funcionario funcionario) {

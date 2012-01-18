@@ -31,7 +31,7 @@ public class UsuarioBean {
 		this.destinoSalvar = "usuarioSucesso";
 		this.usuario = new Usuario();
 		this.usuario.setAtivo(true);
-		return "cad_usuario";
+		return "cad_funcionario";
 	}
 
 	public String atribuiPermissao(Usuario usuario, String permissao) {

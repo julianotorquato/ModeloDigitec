@@ -1,19 +1,88 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:composite="http://java.sun.com/jsf/composite"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
-<head>
-<title>Not present in rendered output</title>
-</head>
-<body>
-<composite:interface>
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:sec="http://www.springframework.org/security/facelets/tags"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
 
-</composite:interface>
-<composite:implementation>
+	<ui:composition template="/templates/template_interno.xhtml">
+		<ui:define name="titulo">
+			Administração
+		</ui:define>
+		<ui:define name="conteudo">
 
-</composite:implementation>
-</body>
+	<h:form>
+		<h:messages />
+		<div align="right">
+			<input type="button" value="Logout" 
+	onclick="document.location='#{request.contextPath}/j_spring_security_logout'"/>
+		</div>
+		<p:dataTable  value="#{funcionarioBean.funcionarios}" var="funcionario" rules="rows" cellpadding="5" >
+			<f:facet name="caption">
+				
+			</f:facet>
+			<f:facet name="header">Listagem de Usuários</f:facet>
+			<br/>
+			<f:facet name="footer">Final da listagem</f:facet>
+			<br/>
+			<p:column>
+				<f:facet name="header">Status</f:facet>
+				<h:commandLink action="#{funcionarioBean.ativar}">
+					<h:graphicImage library="imagens" name="usuario_ativo_#{funcionario.ativo}.png" title="Definir Status"
+						style="border:0"/>
+					<f:setPropertyActionListener target="#{usuarioBean.salvar}" value="#{funcionario}"/>
+				</h:commandLink>		
+			</p:column>
+			<p:column>
+				<f:facet name="header">Código</f:facet>
+				<h:outputText value="#{funcionario.codigo}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Nome</f:facet>
+				<h:outputText value="#{funcionario.nome}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">E-Mail</f:facet>
+				<a href="mailto:#{funcionario.email}">#{funcionario.email}</a>
+			</p:column>
+			
+			
+			<p:column>
+				<f:facet name="header">Permissões</f:facet>
+				<h:commandLink action="#{funcionarioBean.atribuiPermissao(funcionario, 'ROLE_ADMINISTRADOR')}" title="Permissão Administrador">
+							<h:graphicImage library="imagens" 
+					name="ROLE_ADMINISTRADOR_#{funcionario.permissao.contains('ROLE_ADMINISTRADOR')}.png" 
+					style="border:0"/>
+				</h:commandLink>
+				<h:commandLink action="#{funcionarioBean.atribuiPermissao(funcionario, 'ROLE_USUARIO_VIP')}" 
+					title="Permissão Usuário VIP" >
+						
+				<h:graphicImage library="imagens"
+					name="ROLE_USUARIO_VIP_#{funcionario.permissao.contains('ROLE_USUARIO_VIP')}.png" 
+					style="border:0"/>
+				</h:commandLink>	
+			</p:column>
+		
+			<p:column>
+				<f:facet name="header">Editar</f:facet>
+				<h:commandLink action="#{funcionarioBean.editar}">
+					<h:graphicImage library="imagens" name="editar16.png" style="border:0" />
+					<f:setPropertyActionListener target="#{funcionarioBean.funcionario}" value="#{funcionario}"/>
+					<f:setPropertyActionListener target="#{funcionarioBean.destinoSalvar}" value="/admin/controle_acesso"/>
+				</h:commandLink>
+			</p:column>
+			
+			<p:column>
+				<f:facet name="header">Excluir</f:facet>
+				<h:commandLink action="#{funcionarioBean.excluir}" 
+				onclick="if (!confirm('Corfirma a exclusão do funcionário #{funcionario.nome}?')) return false;">
+					<h:graphicImage library="imagens" name="excluir16.png" style="border:0" />
+					<f:setPropertyActionListener target="#{funcionarioBean.funcionario}" value="#{funcionario}"/>
+				</h:commandLink>	
+			</p:column>
+		</p:dataTable>
+	</h:form>
+		</ui:define>
+	</ui:composition>
 </html>

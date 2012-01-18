@@ -11,35 +11,31 @@
 <ui:composition template="/templates/template_interno.xhtml">
 	<ui:define name="conteudo">
 	
-	
 	<h:form>			
-			<h:commandButton action="#{usuarioBean.novo}" value="Registre-se" />
+			<h:commandButton action="#{funcionarioBean.novo}" value="Registre-se" />
 	</h:form>	
-		<div align="center">
-		<h:form>
-			<p:panel header="Área de Login">
-				<h:panelGroup rendered="#{!empty param.login_error}">
-					<span style="font-color:red">Erro ao efetuar o login.</span><br/>
-					<br/>
-					Motivo:#{SPRING_SECURITY_LAST_EXCEPTION.message}
-				</h:panelGroup>	
-				<form id="login" method="post" action="#{request.contextPath}/j_spring_security_check">
-				<table>
-					<tr><td>Login: </td>
-						<td><input type='text' name='j_username'/></td></tr>
-					<tr><td>Senha: </td>
-						<td><input type='password' name='j_password'/></td></tr>
-					<tr><td></td>
-						<td><input type="submit" value="Entrar"/></td>
-					</tr>
-				</table>
-				<script>
-					document.getElementById("login").j_username.value = "#{SPRING_SECURITY_LAST_USERNAME}";
-				</script>
-				</form>
-			</p:panel>
-		</h:form>
-		</div>
+	
+	<div align="center">
+	<p:panel header="Área de Login">
+		<h:panelGroup rendered="#{!empty param.login_error}">
+			<span style="font-color:red">Erro ao efetuar o login.</span><br/>
+			<br/>
+			Motivo:#{SPRING_SECURITY_LAST_EXCEPTION.message}
+		</h:panelGroup>	
+		<form id="login" method="post" action="#{request.contextPath}/j_spring_security_check">
+		<h:panelGrid columns="2" cellspacing="5">
+			<h:outputLabel for="j_username" value="Login: " />
+			<p:inputMask id="j_username" mask="999.999.999-99" required="true"/>
+			<h:outputLabel for="j_password" value="Senha: " />
+			<p:password id="j_password" required="true" feedback="true" minLength="5" maxlength="10"/>
+			<h:commandButton value="Entrar"/>
+		</h:panelGrid>
+		<script>
+			document.getElementById("login").j_username.value = "#{SPRING_SECURITY_LAST_USERNAME}";
+		</script>
+		</form>
+	</p:panel>
+	</div>
 	</ui:define>
 </ui:composition>
 </html>
