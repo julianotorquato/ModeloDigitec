@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+<ui:composition template="/templates/template.xhtml">
+	<ui:define name="conteudo">
+	
+		<h:form id="formCliente">
+			<p:messages/>
+			
+		<div align="center">
+			<h:outputText value="(Os campos em vermelho são obrigatórios)" style="color:red; font-size:11px;"/>
+		</div>
+		
+		<p:fieldset legend="Dados do Cliente" toggleable="true" toggleSpeed="400">
+			<h:panelGrid columns="3" cellspacing="5">
+				<h:outputText value="Nome Real: " style="color:red;" />
+				<p:inputText id="nomeReal" size="50"/>
+				<p:message for="nomeReal"/>
+				
+				<h:outputText value="Nome Fantasia: " style="color:red;" />
+				<p:inputText id="nomeFantasia" size="50"/>
+				<p:message for="nomeFantasia"/>
+				
+				<h:outputText value="Tipo de Documento: " style="color:red;"/>
+				<h:selectOneRadio id="cpf-cnpj" label="cpf-cnpj">
+					<f:selectItem itemLabel="CNPJ"/>
+					<f:selectItem itemLabel="CPF"/>
+				</h:selectOneRadio>
+				<p:message for="cpf-cnpj"/>
+				
+				<h:outputLabel value="CPF: " for="cpf"/>
+				<p:inputMask id="cpf" label="cpf" mask="999.999.999-99"/>
+				<p:message for="cpf"/>
+				
+				<h:outputLabel value="CNPJ: " for="cnpj" />
+				<p:inputMask id="cnpj" label="cnpj" mask="99.999.999/9999-99"/>
+				<p:message for="cnpj"/>
+			</h:panelGrid>
+		</p:fieldset>
+		
+		<p:spacer height="3"/>
+		
+		<p:fieldset legend="Formas de Contato" toggleable="true" toggleSpeed="400">
+				<h:panelGrid id="gridContato" columns="3" cellspacing="5">
+					<h:outputText value="Fone Celular: " />
+					<p:inputMask id="celular" required="false" label="Fone Celular" mask="(99)9999-9999" />
+					<p:message for="celular"/>	
+					
+					<h:outputText value="Fone Residencial: " />
+					<p:inputMask id="residencial" required="false" label="Fone Residencial" mask="(99)9999-9999"  />
+					<p:message for="residencial"/>	
+					
+					<h:outputText value="E-mail: " style="color:red;"/>
+					<h:panelGroup>
+					<p:inputText id="email" 
+						label="E-Mail" 
+						size="50" maxlength="100" required="true" 
+						validatorMessage="E-Mail inválido">
+						<f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+"/>
+					</p:inputText>
+					<p:message for="email"/> 
+				</h:panelGroup>
+					<p:message for="email"/>
+				</h:panelGrid>
+			</p:fieldset>
+			
+			<p:spacer height="3"/>
+			
+			<p:fieldset legend="Endereço" toggleable="true" toggleSpeed="400">
+				<h:panelGrid id="gridEndereco" columns="3" cellspacing="5">
+					<h:outputText value="Rua: " style="color:red;" />
+					<p:inputText id="rua" required="true" label="Rua" size="50" requiredMessage="Rua é um campo obrigatório."/>
+					<p:message for="rua"/>
+					
+					<h:outputText value="Bairro: " style="color:red;"/>
+					<p:inputText id="bairro" required="true" label="Bairro" size="50" requiredMessage="Bairro é um campo obrigatório."/>
+					<p:message for="bairro"/>
+					
+					<h:outputText value="Complemento: " />
+					<p:inputText id="complemento" required="false" label="Bairro" size="50" />
+					<p:message for="complemento"/>
+				</h:panelGrid>
+			</p:fieldset>
+			
+			<p:spacer height="3"/>
+			
+			<p:toolbar>
+				<p:toolbarGroup align="right">
+					<h:commandButton value="salvar" />
+				</p:toolbarGroup>
+			</p:toolbar>
+		</h:form>
+	</ui:define>
+</ui:composition>	
+</html>

@@ -68,7 +68,7 @@ public class Cliente implements Serializable {
 	public Integer getCodigo() {
 		return codigo;
 	}
-	false
+
 	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
 	}
