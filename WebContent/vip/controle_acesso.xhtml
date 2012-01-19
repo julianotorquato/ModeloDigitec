@@ -12,16 +12,16 @@
 		</ui:define>
 		<ui:define name="conteudo">
 
+	
 	<h:form>
 		<h:messages />
-		<p:dataTable  value="#{funcionarioBean.funcionarios}" var="funcionario" rules="rows" cellpadding="5" scrollable="true">
+		<p:fieldset legend="Lista de Usuários do Sistema" toggleSpeed="400" toggleable="true">
+		<p:dataTable  value="#{funcionarioBean.funcionarios}" var="funcionario" rules="rows" paginator="true" rows="10" cellpadding="5" scrollable="false">
 			<f:facet name="caption">
 				
 			</f:facet>
-			<f:facet name="header">Listagem de Usuários do Sistema</f:facet>
-			<br/>
-			<f:facet name="footer">Neo Sistemas</f:facet>
-			<br/>
+				<f:facet name="header">Listagem de Usuários do Sistema
+			</f:facet>
 			<p:column>
 				<f:facet name="header">Status</f:facet>
 				<h:commandLink action="#{funcionarioBean.ativar}">
@@ -78,6 +78,7 @@
 				</h:commandLink>	
 			</p:column>
 		</p:dataTable>
+		</p:fieldset>
 	</h:form>
 		</ui:define>
 	</ui:composition>
