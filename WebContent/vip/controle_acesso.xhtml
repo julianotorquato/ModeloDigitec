@@ -6,7 +6,7 @@
       xmlns:sec="http://www.springframework.org/security/facelets/tags"
       xmlns:p="http://primefaces.prime.com.tr/ui">
 
-	<ui:composition template="/templates/template_interno.xhtml">
+	<ui:composition template="/templates/template.xhtml">
 		<ui:define name="titulo">
 			Administração
 		</ui:define>
@@ -14,17 +14,13 @@
 
 	<h:form>
 		<h:messages />
-		<div align="right">
-			<input type="button" value="Logout" 
-	onclick="document.location='#{request.contextPath}/j_spring_security_logout'"/>
-		</div>
-		<p:dataTable  value="#{funcionarioBean.funcionarios}" var="funcionario" rules="rows" cellpadding="5" >
+		<p:dataTable  value="#{funcionarioBean.funcionarios}" var="funcionario" rules="rows" cellpadding="5" scrollable="true">
 			<f:facet name="caption">
 				
 			</f:facet>
-			<f:facet name="header">Listagem de Usuários</f:facet>
+			<f:facet name="header">Listagem de Usuários do Sistema</f:facet>
 			<br/>
-			<f:facet name="footer">Final da listagem</f:facet>
+			<f:facet name="footer">Neo Sistemas</f:facet>
 			<br/>
 			<p:column>
 				<f:facet name="header">Status</f:facet>
@@ -69,7 +65,7 @@
 				<h:commandLink action="#{funcionarioBean.editar}">
 					<h:graphicImage library="imagens" name="editar16.png" style="border:0" />
 					<f:setPropertyActionListener target="#{funcionarioBean.funcionario}" value="#{funcionario}"/>
-					<f:setPropertyActionListener target="#{funcionarioBean.destinoSalvar}" value="/admin/controle_acesso"/>
+					<f:setPropertyActionListener target="#{funcionarioBean.destinoSalvar}" value="/vip/controle_acesso"/>
 				</h:commandLink>
 			</p:column>
 			

@@ -8,8 +8,24 @@
       xmlns:p="http://primefaces.prime.com.tr/ui">
 
 	<ui:composition>
+		<sec:ifAnyGranted roles="ROLE_USUARIO">
+		<div align="right">
+				<h:form>
+				<h:panelGrid columns="4" cellspacing="5">
+					Usuário logado #{request.remoteUser} |
+					<h:commandLink action="/restrito/principal" title="Home">
+						<h:graphicImage library="imagens" name="principal16.png" />
+					</h:commandLink> |
+					<h:outputLink value="javascript:void(0)" 
+						onclick="document.location='#{request.contextPath}/j_spring_security_logout'"
+						title="Sair">
+						<h:graphicImage library="imagens" name="logout16.png" />
+					</h:outputLink>
+				</h:panelGrid>
+				</h:form>
+				</div>
 		<h:form>
-			<p:menubar>
+			<p:menubar autoSubmenuDisplay="true">
 				<p:submenu label="Consulta/Relatório">
 					<p:menuitem value="Serviço"/>
 					<p:menuitem value="Cliente"/>
@@ -28,22 +44,40 @@
 					<p:menuitem value="Requisição de Produto"/>
 					<p:menuitem value="Fornecimento de Produto"/>
 				</p:submenu>
-				
+			
+		
+		
+		<sec:ifAnyGranted roles="ROLE_ADMINISTRADOR">
 				<p:submenu label="Cadastro">
 					<p:menuitem value="Serviço"/>
 					<p:menuitem value="Cliente" />
 					<p:menuitem value="Cargo"/>
-					<p:menuitem value="Funcionário" url="funcionario.jsf" rendered="#{sec:ifAnyGranted('ROLE_USUARIO')}"/>
+					<p:menuitem value="Funcionário" url="/admin/cad_funcionario.jsf" ajax="false" />
 					<p:menuitem value="Produto"/>
 					<p:menuitem value="Fornecedor"/>	
 				</p:submenu>
-				
+		
+		
+		<sec:ifAnyGranted roles="ROLE_USUARIO_VIP">		
 				<p:submenu label="Administrativo">
-					<p:menuitem value="Controle de Acesso"/>
+					<p:menuitem value="Controle de Acesso" url="/vip/controle_acesso.jsf" ajax="false"/>
 					<p:menuitem value="Controle de Tema"/>
 				</p:submenu>
-			</p:menubar>
+		</sec:ifAnyGranted>
+		</sec:ifAnyGranted>	
+			</p:menubar>	
 		</h:form>
-			
+		</sec:ifAnyGranted>	
+		
+		<sec:ifAnyGranted roles="ROLE_USUARIO_VIP">	
+			<p:stack icon="/resources/imagens/stack.png">  
+			    <p:menuitem value="Aperture" icon="/resources/imagens/aperture.png" url="#"/>  
+			    <p:menuitem value="Photoshop" icon="/resources/imagens/photoshop.png" url="#"/>  
+			    <p:menuitem value="Coda" icon="/resources/imagens/coda.png" url="#"/>  
+			    <p:menuitem value="Safari" icon="/resources/imagens/safari.png" url="#" />  
+			    <p:menuitem value="Finder" icon="/resources/imagens/finder.png" url="#" />  
+			</p:stack> 
+		</sec:ifAnyGranted>	
+		
 	</ui:composition>
 </html>

@@ -25,9 +25,9 @@
         <property name="show_sql">true</property>		
         <property name="format_sql">true</property>
 
-<!--   <mapping class="dominio.Contato"/>  -->
+
   <mapping class="dominio.Funcionario"/> 
-<!--   <mapping class="dominio.Usuario"/> -->
+
    
     </session-factory>
 </hibernate-configuration>

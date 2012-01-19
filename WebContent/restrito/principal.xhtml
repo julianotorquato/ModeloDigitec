@@ -8,16 +8,8 @@
 	<ui:composition template="/templates/template.xhtml">
 		<ui:define name="conteudo">
 
-		Usuário logado #{request.remoteUser}
-
 <h:form>
-
-	<sec:ifAnyGranted roles="ROLE_ADMINISTRADOR">
-		<h:commandButton value="Administração" action="/admin/controle_acesso"  />
-	</sec:ifAnyGranted>
-	Funcionou!!!!!
-	<input type="button" value="Logout" 
-	onclick="document.location='#{request.contextPath}/j_spring_security_logout'"/>
+	<h1>Esta é a HOME, será implementado o Spring Social</h1>
 </h:form>	
 	</ui:define>
 </ui:composition>	

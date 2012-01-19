@@ -36,8 +36,9 @@ public class FuncionarioBean implements Serializable {
 
 			if (!senha.equals(confirmaSenha)) {
 
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						"Erro", "A senha não foi confirmada corretamente!");
+				FacesMessage msg = new FacesMessage(
+						FacesMessage.SEVERITY_ERROR,
+						"A senha não foi confirmada corretamente!", "");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 				return null;
 			}
@@ -52,12 +53,13 @@ public class FuncionarioBean implements Serializable {
 			return this.destinoSalvar;
 		} catch (Exception e) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Erro", "Não foi possível salvar contato: "
-							+ funcionario.getNome());
+					"Este CPF já existe", "Este CPF já existe.");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
+			// funcionario = new Funcionario();
+			confirmaSenha = "";
 		}
 
-		return "";
+		return "CPF já existente!!";
 	}
 
 	// A cada nova instanciação do objeto usuário este será setado com ativo
@@ -82,7 +84,7 @@ public class FuncionarioBean implements Serializable {
 
 	public String editar() {
 		this.confirmaSenha = this.funcionario.getSenha();
-		return "/publico/cad_funcionario";
+		return "/admin/cad_funcionario";
 	}
 
 	public String excluir() {
