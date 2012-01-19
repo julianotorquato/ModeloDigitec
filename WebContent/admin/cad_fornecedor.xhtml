@@ -9,14 +9,14 @@
 <ui:composition template="/templates/template.xhtml">
 	<ui:define name="conteudo">
 	
-		<h:form id="formCliente">
+		<h:form id="formFornecedor">
 			<p:messages/>
 			
 		<div align="center">
 			<h:outputText value="(Os campos em vermelho são obrigatórios)" style="color:red; font-size:11px;"/>
 		</div>
 		
-		<p:fieldset legend="Dados do Cliente" toggleable="true" toggleSpeed="400">
+		<p:fieldset legend="Dados do Fornecedor" toggleable="true" toggleSpeed="400">
 			<h:panelGrid columns="3" cellspacing="5">
 				<h:outputText value="Nome Real: " style="color:red;" />
 				<p:inputText id="nomeReal" size="50"/>
@@ -51,11 +51,11 @@
 					<p:inputMask id="celular" required="false" label="Fone Celular" mask="(99)9999-9999" />
 					<p:message for="celular"/>	
 					
-					<h:outputText value="Fone Residencial: " />
-					<p:inputMask id="residencial" required="false" label="Fone Residencial" mask="(99)9999-9999"  />
-					<p:message for="residencial"/>	
+					<h:outputText value="Fone Comercial: " />
+					<p:inputMask id="comercial" required="false" label="Fone Comercial" mask="(99)9999-9999"  />
+					<p:message for="comercial"/>	
 					
-					<h:outputText value="E-mail: " />
+					<h:outputText value="E-mail: "/>
 					<h:panelGroup>
 					<p:inputText id="email" 
 						label="E-Mail" 
