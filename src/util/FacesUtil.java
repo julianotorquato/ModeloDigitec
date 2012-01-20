@@ -1,11 +1,14 @@
 package util;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 /**
  * Classe utilitario para delegar mensagens para a aplicacao.<br />
@@ -97,6 +100,22 @@ public class FacesUtil {
 		ViewHandler viewHandler = context.getApplication().getViewHandler();
 		UIViewRoot viewRoot = viewHandler.createView(context, originalViewId);
 		context.setViewRoot(viewRoot);
+	}
+
+	/**
+	 * Método responsável por popular uma lista de selectItens a partir de uma
+	 * lista de objetos.
+	 * 
+	 * @param lista
+	 *            Lista de objetos que irá popular a lista de selectItem
+	 * @return uma lista de selectItem
+	 */
+	public static List<SelectItem> toListSelectItem(List<? extends Object> lista) {
+		List<SelectItem> items = new ArrayList<SelectItem>();
+		for (Object o : lista) {
+			items.add(new SelectItem(o, o.toString()));
+		}
+		return items;
 	}
 
 }

@@ -58,6 +58,25 @@
 					<h:outputText value="Complemento: " />
 					<p:inputText id="complemento" required="false" label="Bairro" value="#{funcionarioBean.funcionario.complementoEndereco}" size="50" />
 					<p:message for="complemento"/>
+					
+					<h:outputText value="CEP: " style="color:red;"/>
+					<p:inputMask id="cep" required="true" label="CEP" mask="99999-999" value="#{funcionarioBean.funcionario.cep}" requiredMessage="CEP é um campo obrigatório."/>
+					<p:message for="cep"/>
+					
+					<h:outputText value="Estado: " style="color:red;"/>
+					<h:selectOneMenu id="estado" label="Estado" value="#{funcionarioBean.funcionario.cidade.estado}" required="true" requiredMessage="Estado é um campo obrigatório.">
+						<f:selectItem itemLabel="Selecione" itemValue=""/>
+						<f:selectItems value="#{funcionarioBean.comboEstados}" />
+						<p:ajax listener="#{funcionarioBean.carregarCidadePorEstado}" event="onchange" update="selectCidade"/>
+					</h:selectOneMenu>
+					<p:message for="estado"/>
+					
+					<h:outputText value="Cidade: " style="color:red;"/>
+					<h:selectOneMenu id="selectCidade" label="Cidade" value="#{funcionarioBean.funcionario.cidade}" required="true" requiredMessage="Cidade é um campo obrigatório.">
+						<f:selectItem itemLabel="Selecione" itemValue=""/>
+						<f:selectItems value="#{funcionarioBean.comboCidades}"/>
+					</h:selectOneMenu>
+					<p:message for="selectCidade"/>
 				</h:panelGrid>
 			</p:fieldset>
 			

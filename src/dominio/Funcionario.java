@@ -8,11 +8,13 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -52,6 +54,13 @@ public class Funcionario implements Serializable {
 	@Column(name = "COMPLEMENTO_FUNCIONARIO", nullable = true, length = 50)
 	private String complementoEndereco;
 
+	@Column(name = "CEP_FUNCIONARIO", nullable = false, length = 9)
+	private String cep;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "FK_ID_CIDADE", referencedColumnName = "ID_CIDADE", nullable = false)
+	private Cidade cidade;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "DATA_ADMISSAO_FUNCIONARIO", nullable = false)
 	private Date dataAdmissao;
@@ -84,7 +93,7 @@ public class Funcionario implements Serializable {
 	@Column(name = "PERMISSAO", length = 50)
 	private Set<String> permissao = new HashSet<String>();
 
-	// ################# Métodos Get e Set #################
+	// ################# Métodos Get e Set ################# //
 
 	public Integer getCodigo() {
 		return codigo;
@@ -220,6 +229,22 @@ public class Funcionario implements Serializable {
 
 	public void setPermissao(Set<String> permissao) {
 		this.permissao = permissao;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
 	}
 
 	@Override

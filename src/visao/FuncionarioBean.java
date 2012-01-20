@@ -1,6 +1,7 @@
 package visao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -8,8 +9,18 @@ import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
+import negocio.CidadeRN;
+import negocio.EstadoRN;
 import negocio.FuncionarioRN;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import util.FacesUtil;
+import dominio.Cidade;
+import dominio.Estado;
 import dominio.Funcionario;
 
 @ManagedBean(name = "funcionarioBean")
@@ -18,21 +29,71 @@ import dominio.Funcionario;
 public class FuncionarioBean implements Serializable {
 
 	private static final long serialVersionUID = 2213636404760405104L;
+	private static final Log LOGGER = LogFactory.getLog(FuncionarioBean.class);
 
-	private Funcionario funcionario = new Funcionario();
+	private Funcionario funcionario;
 	private List<Funcionario> funcionarios;
+	private Estado estado;
+	private Cidade cidade;
+	private List<Cidade> cidades;
+	private List<Estado> estados;
+	private List<SelectItem> comboCidades;
+	private List<SelectItem> comboEstados;
 	private String destinoSalvar;
 	private String confirmaSenha;
+	private CidadeRN cidadeRN;
+	private EstadoRN estadoRN;
+	private FuncionarioRN funcionarioRN;
+
+	public FuncionarioBean() {
+		inicializar();
+	}
 
 	// ############### Métodos de Ação ############### //
 
+	public void inicializar() {
+		cidadeRN = new CidadeRN();
+		estadoRN = new EstadoRN();
+		funcionarioRN = new FuncionarioRN();
+
+		estado = new Estado();
+		cidade = new Cidade();
+		funcionario = new Funcionario();
+		cidades = new ArrayList<Cidade>();
+		estados = estadoRN.buscaTodosEstados();
+		this.comboCidades = new ArrayList<SelectItem>();
+		comboEstados = FacesUtil.toListSelectItem(estados);
+
+	}
+
+	public void carregarCidadePorEstado() {
+		try {
+
+			cidades = cidadeRN.buscarPorCidade(funcionario.getCidade()
+					.getEstado());
+			comboCidades = FacesUtil.toListSelectItem(cidades);
+		} catch (Exception e) {
+			LOGGER.error(e);
+		}
+
+		// if (estado.getSigla() == null) {
+		// cidade = new Cidade();
+		// List<Cidade> cid = new ArrayList<Cidade>();
+		// cid.add(cidade);
+		// cidades = cid;
+		// } else {
+		// CidadeRN cidadeRN = new CidadeRN();
+		// cidades = cidadeRN.buscarPorCidade(estado);
+		// }
+	}
+
 	// Verifica se a senha inserida pelo usuário é a mesma da confirmação e
 	// habilita salvar se correto
+
 	public String salvar() {
 		try {
 
 			String senha = this.funcionario.getSenha();
-			FuncionarioRN funcionarioRN = new FuncionarioRN();
 
 			if (!senha.equals(confirmaSenha)) {
 
@@ -88,7 +149,6 @@ public class FuncionarioBean implements Serializable {
 	}
 
 	public String excluir() {
-		FuncionarioRN funcionarioRN = new FuncionarioRN();
 		funcionarioRN.excluir(this.funcionario);
 		this.funcionarios = null;
 		return null;
@@ -102,7 +162,6 @@ public class FuncionarioBean implements Serializable {
 			this.funcionario.setAtivo(true);
 			System.out.println("Usuário ativo!");
 		}
-		FuncionarioRN funcionarioRN = new FuncionarioRN();
 		funcionarioRN.salvarOuAtualizar(funcionario);
 		return null;
 	}
@@ -119,7 +178,6 @@ public class FuncionarioBean implements Serializable {
 
 	public List<Funcionario> getFuncionarios() {
 		if (this.funcionarios == null) {
-			FuncionarioRN funcionarioRN = new FuncionarioRN();
 			this.funcionarios = funcionarioRN.listar();
 		}
 		return this.funcionarios;
@@ -143,6 +201,54 @@ public class FuncionarioBean implements Serializable {
 
 	public void setConfirmaSenha(String confirmaSenha) {
 		this.confirmaSenha = confirmaSenha;
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+
+	public List<Cidade> getCidades() {
+		return cidades;
+	}
+
+	public void setCidades(List<Cidade> cidades) {
+		this.cidades = cidades;
+	}
+
+	public List<SelectItem> getComboCidades() {
+		return comboCidades;
+	}
+
+	public void setComboCidades(List<SelectItem> comboCidades) {
+		this.comboCidades = comboCidades;
+	}
+
+	public List<SelectItem> getComboEstados() {
+		return comboEstados;
+	}
+
+	public void setComboEstados(List<SelectItem> comboEstados) {
+		this.comboEstados = comboEstados;
+	}
+
+	public List<Estado> getEstados() {
+		return estados;
+	}
+
+	public void setEstados(List<Estado> estados) {
+		this.estados = estados;
 	}
 
 }

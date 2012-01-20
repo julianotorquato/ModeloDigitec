@@ -51,6 +51,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 		return (Funcionario) consulta.uniqueResult();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Funcionario> listar() {
 		return session.createCriteria(Funcionario.class).list();

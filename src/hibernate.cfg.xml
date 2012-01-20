@@ -26,8 +26,10 @@
         <property name="format_sql">true</property>
 
 
-  <mapping class="dominio.Funcionario"/> 
-
+   <mapping class="dominio.Funcionario"/> 
+  <mapping class="dominio.Estado"/>
+  <mapping class="dominio.Cidade"/>
+  <mapping class="dominio.Fornecedor"/>
    
     </session-factory>
 </hibernate-configuration>
