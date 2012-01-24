@@ -19,11 +19,26 @@ public class CidadeDAOImpl implements CidadeDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Cidade> buscarCidadePorEstado(Estado estado) {
-		String hql = "from Cidade c where c.estado.FK_ID_ESTADO =:ID_ESTADO";
+		String hql = "from Cidade c where c.estado.codigo=:codigo";
 		Query consulta = this.session.createQuery(hql);
-		consulta.setString("ID_ESTADO", estado.getSigla());
-
+		consulta.setInteger("codigo", estado.getCodigo());
 		return consulta.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Cidade> getCidadePorEstado(Integer codigo) {
+		Query query = this.session.createQuery("select c from "
+				+ Cidade.class.getName()
+				+ " as c where c.estado.codigo=:codigo");
+		query.setParameter("codigo", codigo);
+		return query.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Cidade> buscaTodasCidades() {
+		return this.session.createCriteria(Cidade.class).list();
 	}
 
 }

@@ -18,4 +18,12 @@ public class CidadeRN {
 	public List<Cidade> buscarPorCidade(Estado estado) {
 		return this.cidadeDAO.buscarCidadePorEstado(estado);
 	}
+
+	public List<Cidade> getCidadePorEstado(Integer codigo) {
+		return this.cidadeDAO.getCidadePorEstado(codigo);
+	}
+
+	public List<Cidade> buscaTodasCidades() {
+		return this.cidadeDAO.buscaTodasCidades();
+	}
 }

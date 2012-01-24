@@ -17,4 +17,6 @@ public interface FuncionarioDAO {
 	public List<Funcionario> listar();
 
 	public Funcionario carregar(Integer codigo);
+
+	public Funcionario funcionarioPorCidade(Integer codigo);
 }

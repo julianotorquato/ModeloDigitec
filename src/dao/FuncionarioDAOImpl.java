@@ -45,9 +45,9 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 
 	@Override
 	public Funcionario buscarPorCpf(String cpf) {
-		String hql = "select f from Funcionario f where f.CPF_FUNCIONARIO=:CPF_FUNCIONARIO";
+		String hql = "select f from Funcionario f where f.cpf=:cpf";
 		Query consulta = this.session.createQuery(hql);
-		consulta.setString("CPF_FUNCIONARIO", cpf);
+		consulta.setString("cpf", cpf);
 		return (Funcionario) consulta.uniqueResult();
 	}
 
@@ -55,6 +55,16 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 	@Override
 	public List<Funcionario> listar() {
 		return session.createCriteria(Funcionario.class).list();
+	}
+
+	@Override
+	public Funcionario funcionarioPorCidade(Integer codigo) {
+		Query query = this.session.createQuery("select f from "
+				+ Funcionario.class
+				+ " as f where f.cidade.codigo linke :codigo");
+		query.setParameter("codigo", codigo);
+
+		return (Funcionario) query.uniqueResult();
 	}
 
 }

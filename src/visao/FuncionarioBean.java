@@ -18,7 +18,6 @@ import negocio.FuncionarioRN;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import util.FacesUtil;
 import dominio.Cidade;
 import dominio.Estado;
 import dominio.Funcionario;
@@ -33,12 +32,9 @@ public class FuncionarioBean implements Serializable {
 
 	private Funcionario funcionario;
 	private List<Funcionario> funcionarios;
+	private List<SelectItem> cidades;
 	private Estado estado;
 	private Cidade cidade;
-	private List<Cidade> cidades;
-	private List<Estado> estados;
-	private List<SelectItem> comboCidades;
-	private List<SelectItem> comboEstados;
 	private String destinoSalvar;
 	private String confirmaSenha;
 	private CidadeRN cidadeRN;
@@ -55,40 +51,84 @@ public class FuncionarioBean implements Serializable {
 		cidadeRN = new CidadeRN();
 		estadoRN = new EstadoRN();
 		funcionarioRN = new FuncionarioRN();
-
-		estado = new Estado();
-		cidade = new Cidade();
 		funcionario = new Funcionario();
-		cidades = new ArrayList<Cidade>();
-		estados = estadoRN.buscaTodosEstados();
-		this.comboCidades = new ArrayList<SelectItem>();
-		comboEstados = FacesUtil.toListSelectItem(estados);
+		cidade = new Cidade();
+		estado = new Estado();
+		cidades = new ArrayList<SelectItem>();
 
 	}
 
-	public void carregarCidadePorEstado() {
-		try {
+	public List<SelectItem> getEstados() {
 
-			cidades = cidadeRN.buscarPorCidade(funcionario.getCidade()
-					.getEstado());
-			comboCidades = FacesUtil.toListSelectItem(cidades);
-		} catch (Exception e) {
-			LOGGER.error(e);
+		List<Estado> lista = estadoRN.buscaTodosEstados();
+
+		List<SelectItem> itens = new ArrayList<SelectItem>(lista.size());
+
+		for (Estado estado : lista) {
+			itens.add(new SelectItem(estado.getCodigo(), estado.getSigla()));
+			// System.out.println("Código do estado: " + estado.getCodigo()
+			// + " o nome do estado: " + estado.getNome());
 		}
 
-		// if (estado.getSigla() == null) {
-		// cidade = new Cidade();
-		// List<Cidade> cid = new ArrayList<Cidade>();
-		// cid.add(cidade);
-		// cidades = cid;
-		// } else {
-		// CidadeRN cidadeRN = new CidadeRN();
-		// cidades = cidadeRN.buscarPorCidade(estado);
-		// }
+		System.out.println("Tamanho da lista de estado: " + lista.size());
+		return itens;
 	}
 
-	// Verifica se a senha inserida pelo usuário é a mesma da confirmação e
-	// habilita salvar se correto
+	// public List<SelectItem> getCidades() {
+	// List<Cidade> cidades = cidadeRN.buscaTodasCidades();
+	//
+	// List<SelectItem> itemCidade = new ArrayList<SelectItem>(cidades.size());
+	//
+	// for (Cidade cidade : cidades) {
+	// itemCidade
+	// .add(new SelectItem(cidade.getCodigo(), cidade.getNome()));
+	// }
+	// return itemCidade;
+	// }
+
+	public void actionCarregaCidades() {
+
+		this.cidades = this.getCidadeByEstado();
+		System.out.println("O código da cidade selecionado é: "
+				+ this.cidade.getCodigo());
+
+		System.out.println("Cidade não é null");
+		LOGGER.info("código de estado carregado: " + estado.getCodigo());
+
+	}
+
+	public List<SelectItem> getCidadeByEstado() {
+
+		// funcionario = new Funcionario();
+		List<Cidade> cidades = cidadeRN.getCidadePorEstado(this.estado
+				.getCodigo());
+
+		System.out.println("Código do estado pra pesquisar: "
+				+ estado.getCodigo());
+
+		List<SelectItem> items = new ArrayList<SelectItem>(cidades.size());
+
+		System.out.println("O que em antes do vetor : " + items);
+
+		for (Cidade cidade : cidades) {
+			items.add(new SelectItem(cidade.getCodigo(), cidade.getNome()));
+			// System.out.println("Código de cidade: " + cidade.getCodigo()
+			// + " o nome da cidade: " + cidade.getNome());
+
+		}
+
+		// System.out.println("Existe instância de funcionário : "
+		// + cidades.contains(funcionario instanceof Funcionario));
+
+		System.out.println("Tamanho da lista: " + cidades.size());
+
+		// System.out
+		// .println("Verifica se na busca de cidades encontra o código do estado: "
+		// + cidades.contains(estado.getCodigo()));
+
+		return items;
+
+	}
 
 	public String salvar() {
 		try {
@@ -203,14 +243,6 @@ public class FuncionarioBean implements Serializable {
 		this.confirmaSenha = confirmaSenha;
 	}
 
-	public Estado getEstado() {
-		return estado;
-	}
-
-	public void setEstado(Estado estado) {
-		this.estado = estado;
-	}
-
 	public Cidade getCidade() {
 		return cidade;
 	}
@@ -219,36 +251,22 @@ public class FuncionarioBean implements Serializable {
 		this.cidade = cidade;
 	}
 
-	public List<Cidade> getCidades() {
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
+	public List<SelectItem> getCidades() {
+		System.out.println(" realiza busca de cidade ? O.o : "
+				+ cidade.getNome());
 		return cidades;
 	}
 
-	public void setCidades(List<Cidade> cidades) {
+	public void setCidades(List<SelectItem> cidades) {
 		this.cidades = cidades;
-	}
-
-	public List<SelectItem> getComboCidades() {
-		return comboCidades;
-	}
-
-	public void setComboCidades(List<SelectItem> comboCidades) {
-		this.comboCidades = comboCidades;
-	}
-
-	public List<SelectItem> getComboEstados() {
-		return comboEstados;
-	}
-
-	public void setComboEstados(List<SelectItem> comboEstados) {
-		this.comboEstados = comboEstados;
-	}
-
-	public List<Estado> getEstados() {
-		return estados;
-	}
-
-	public void setEstados(List<Estado> estados) {
-		this.estados = estados;
 	}
 
 }

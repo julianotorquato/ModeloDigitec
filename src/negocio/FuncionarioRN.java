@@ -42,4 +42,9 @@ public class FuncionarioRN {
 		return this.funcionarioDAO.listar();
 	}
 
+	public Funcionario funcionarioPorCidade(Integer codigo) {
+
+		return this.funcionarioDAO.funcionarioPorCidade(codigo);
+	}
+
 }
