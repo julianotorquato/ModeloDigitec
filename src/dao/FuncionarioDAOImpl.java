@@ -58,10 +58,9 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 	}
 
 	@Override
-	public Funcionario funcionarioPorCidade(Integer codigo) {
+	public Funcionario recuperaCodigoCidade(Integer codigo) {
 		Query query = this.session.createQuery("select f from "
-				+ Funcionario.class
-				+ " as f where f.cidade.codigo linke :codigo");
+				+ Funcionario.class + " as f where f.cidade.codigo=:codigo");
 		query.setParameter("codigo", codigo);
 
 		return (Funcionario) query.uniqueResult();

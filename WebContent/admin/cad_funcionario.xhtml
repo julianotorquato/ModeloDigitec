@@ -14,6 +14,7 @@
 		<h:inputHidden value="#{funcionarioBean.funcionario.codigo}"/>
 		<h:inputHidden value="#{funcionarioBean.funcionario.ativo}"/>
 		<h:inputHidden value="#{funcionarioBean.destinoSalvar}" />
+		<h:inputHidden value="#{funcionarioBean.senhaCriptografada}" />
 		
 		<div align="center">
 		<h:outputText value="(Os campos em vermelho são obrigatórios)" style="color:red; font-size:11px;"/>
@@ -64,17 +65,17 @@
 					<p:message for="cep"/>
 					
 					<h:outputText value="Estado: " style="color:red;"/>
-					<h:selectOneMenu id="estado"  label="Estado" value="#{funcionarioBean.estado.codigo}" required="true" requiredMessage="Estado é um campo obrigatório.">
+					<h:selectOneMenu id="estado"  label="Estado" required="false" requiredMessage="Estado é um campo obrigatório.">
 						<f:selectItem itemLabel="Selecione" itemValue=""/>
-						<f:selectItems value="#{funcionarioBean.estados}" />
-						<p:ajax update="estado, cidade" listener="#{funcionarioBean.actionCarregaCidades}"/>
+						<f:selectItems  />
+						<p:ajax update="estado, cidade" />
 					</h:selectOneMenu>
 					<p:message for="estado"/>
 					
 					<h:outputText value="Cidade: " style="color:red;"/>
-					<h:selectOneMenu id="cidade"  label="Cidade" value="#{funcionarioBean.funcionario.cidade.codigo}" required="true" requiredMessage="Cidade é um campo obrigatório.">
+					<h:selectOneMenu id="cidade"  label="Cidade" required="false" requiredMessage="Cidade é um campo obrigatório.">
 						<f:selectItem itemLabel="Selecione" itemValue=""/>
-						<f:selectItems value="#{funcionarioBean.cidades}"/>
+						<f:selectItems />
 					</h:selectOneMenu>
 					<p:message for="cidade"/>
 				</h:panelGrid>

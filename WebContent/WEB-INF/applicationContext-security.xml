@@ -19,7 +19,7 @@
 
 	<authentication-manager>
 		<authentication-provider>
-		
+			<password-encoder hash="md5"/>
 			<jdbc-user-service data-source-ref="digitecDataSource"
 				authorities-by-username-query="SELECT f.CPF_FUNCIONARIO, p.PERMISSAO 
 											 FROM funcionario f, funcionario_permissao p 

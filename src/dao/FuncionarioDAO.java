@@ -18,5 +18,5 @@ public interface FuncionarioDAO {
 
 	public Funcionario carregar(Integer codigo);
 
-	public Funcionario funcionarioPorCidade(Integer codigo);
+	public Funcionario recuperaCodigoCidade(Integer codigo);
 }
