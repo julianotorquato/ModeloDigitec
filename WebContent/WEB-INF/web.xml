@@ -101,6 +101,7 @@
 		<param-name>com.sun.faces.allowTextChildren</param-name>
 		<param-value>true</param-value>
 	</context-param>
+
 	
 <!-- 	Tema do PrimeFaces -->
 	

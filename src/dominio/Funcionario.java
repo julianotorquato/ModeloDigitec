@@ -3,16 +3,21 @@ package dominio;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -91,6 +96,13 @@ public class Funcionario implements Serializable {
 			"USUARIO_FUNCIONARIO", "PERMISSAO" }) }, joinColumns = @JoinColumn(name = "USUARIO_FUNCIONARIO"))
 	@Column(name = "PERMISSAO", length = 50)
 	private Set<String> permissao = new HashSet<String>();
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "funcionario")
+	private List<OrdemServico> ordemServicos;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "FK_ID_CARGO", referencedColumnName = "ID_CARGO", nullable = false)
+	private Cargo cargo;
 
 	// ################# Métodos Get e Set ################# //
 
@@ -245,6 +257,22 @@ public class Funcionario implements Serializable {
 	// public void setCidade(Cidade cidade) {
 	// this.cidade = cidade;
 	// }
+
+	public List<OrdemServico> getOrdemServicos() {
+		return ordemServicos;
+	}
+
+	public void setOrdemServicos(List<OrdemServico> ordemServicos) {
+		this.ordemServicos = ordemServicos;
+	}
+
+	public Cargo getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(Cargo cargo) {
+		this.cargo = cargo;
+	}
 
 	@Override
 	public int hashCode() {

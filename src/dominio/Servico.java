@@ -2,12 +2,15 @@ package dominio;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,6 +32,11 @@ public class Servico implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "DATA_CADASTRO_SERVICO")
 	private Date dataCadastro;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "servico")
+	private List<OrdemServico> ordemServicos;
+
+	// ################# Métodos Get e Set ################# //
 
 	public Integer getCodigo() {
 		return codigo;
@@ -52,6 +60,14 @@ public class Servico implements Serializable {
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+
+	public List<OrdemServico> getOrdemServicos() {
+		return ordemServicos;
+	}
+
+	public void setOrdemServicos(List<OrdemServico> ordemServicos) {
+		this.ordemServicos = ordemServicos;
 	}
 
 	@Override

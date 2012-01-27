@@ -41,4 +41,13 @@ public class CidadeDAOImpl implements CidadeDAO {
 		return this.session.createCriteria(Cidade.class).list();
 	}
 
+	@Override
+	public Cidade recuperaCodigoCidade(Integer codigo) {
+		Query query = this.session
+				.createQuery("select c from Cidade c where cidade.codigo=:codigo");
+		query.setParameter("codigo", codigo);
+
+		return (Cidade) query.uniqueResult();
+	}
+
 }

@@ -1,5 +1,7 @@
 package util;
 
+import dao.CargoDAO;
+import dao.CargoDAOImpl;
 import dao.CidadeDAO;
 import dao.CidadeDAOImpl;
 import dao.EstadoDAO;
@@ -31,5 +33,12 @@ public class DAOFactory {
 				.getCurrentSession());
 
 		return estadoDAO;
+	}
+
+	public static CargoDAO criarCargoDAO() {
+		CargoDAOImpl cargoDAO = new CargoDAOImpl();
+		cargoDAO.setSession(HibernateUtil.getSessionFactory()
+				.getCurrentSession());
+		return cargoDAO;
 	}
 }

@@ -65,17 +65,17 @@
 					<p:message for="cep"/>
 					
 					<h:outputText value="Estado: " style="color:red;"/>
-					<h:selectOneMenu id="estado"  label="Estado" required="false" requiredMessage="Estado é um campo obrigatório.">
+					<h:selectOneMenu id="estado"  label="Estado" value="" required="false" requiredMessage="Estado é um campo obrigatório.">
 						<f:selectItem itemLabel="Selecione" itemValue=""/>
-						<f:selectItems  />
-						<p:ajax update="estado, cidade" />
+						<f:selectItems value=""  />
+						<p:ajax update="estado, cidade"  />
 					</h:selectOneMenu>
 					<p:message for="estado"/>
 					
 					<h:outputText value="Cidade: " style="color:red;"/>
-					<h:selectOneMenu id="cidade"  label="Cidade" required="false" requiredMessage="Cidade é um campo obrigatório.">
+					<h:selectOneMenu id="cidade"  label="Cidade" value="" required="false" requiredMessage="Cidade é um campo obrigatório.">
 						<f:selectItem itemLabel="Selecione" itemValue=""/>
-						<f:selectItems />
+						<f:selectItems value=""/>
 					</h:selectOneMenu>
 					<p:message for="cidade"/>
 				</h:panelGrid>

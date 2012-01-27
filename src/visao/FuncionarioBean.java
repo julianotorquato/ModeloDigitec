@@ -60,63 +60,62 @@ public class FuncionarioBean implements Serializable {
 
 	}
 
-	// public List<SelectItem> getEstados() {
-	//
-	// List<Estado> lista = estadoRN.buscaTodosEstados();
-	//
-	// List<SelectItem> itens = new ArrayList<SelectItem>(lista.size());
-	//
-	// for (Estado estado : lista) {
-	// itens.add(new SelectItem(estado.getCodigo(), estado.getSigla()));
-	// // System.out.println("Código do estado: " + estado.getCodigo()
-	// // + " o nome do estado: " + estado.getNome());
-	// }
-	//
-	// System.out.println("Tamanho da lista de estado: " + lista.size());
-	// return itens;
-	// }
+	public List<SelectItem> getEstados() {
 
-	// public void actionCarregaCidades() {
-	//
-	// this.cidades = this.getCidadeByEstado();
-	// System.out.println("O código da cidade selecionado é: "
-	// + this.cidade.getCodigo());
-	//
-	// LOGGER.info("código de estado carregado: " + estado.getCodigo());
-	//
-	// }
+		List<Estado> lista = estadoRN.buscaTodosEstados();
 
-	// public List<SelectItem> getCidadeByEstado() {
-	//
-	// // funcionario = new Funcionario();
-	// List<Cidade> cidades = cidadeRN.getCidadePorEstado(this.estado
-	// .getCodigo());
-	//
-	// System.out.println("Código do estado pra pesquisar: "
-	// + estado.getCodigo());
-	//
-	// List<SelectItem> items = new ArrayList<SelectItem>(cidades.size());
-	//
-	// for (Cidade cidade : cidades) {
-	// items.add(new SelectItem(cidade.getCodigo(), cidade.getNome()));
-	// // System.out.println("Código de cidade: " + cidade.getCodigo()
-	// // + " o nome da cidade: " + cidade.getNome());
-	//
-	// }
-	//
-	// // System.out.println("Existe instância de funcionário : "
-	// // + cidades.contains(funcionario instanceof Funcionario));
-	//
-	// System.out.println("Tamanho da lista: " + cidades.size());
-	//
-	// // System.out
-	// //
-	// .println("Verifica se na busca de cidades encontra o código do estado: "
-	// // + cidades.contains(estado.getCodigo()));
-	//
-	// return items;
-	//
-	// }
+		List<SelectItem> itens = new ArrayList<SelectItem>(lista.size());
+
+		for (Estado estado : lista) {
+			itens.add(new SelectItem(estado.getCodigo(), estado.getSigla()));
+			// System.out.println("Código do estado: " + estado.getCodigo()
+			// + " o nome do estado: " + estado.getNome());
+		}
+
+		System.out.println("Tamanho da lista de estado: " + lista.size());
+		return itens;
+	}
+
+	public void actionCarregaCidades() {
+
+		this.cidades = this.getCidadeByEstado();
+
+		System.out.println("O código da cidade selecionado é: "
+				+ this.cidade.getCodigo());
+
+		LOGGER.info("código de estado carregado: " + estado.getCodigo());
+
+	}
+
+	public List<SelectItem> getCidadeByEstado() {
+
+		List<Cidade> cidades = cidadeRN.getCidadePorEstado(this.estado
+				.getCodigo());
+
+		System.out.println("Código do estado pra pesquisar: "
+				+ estado.getCodigo());
+
+		List<SelectItem> items = new ArrayList<SelectItem>(cidades.size());
+		for (Cidade cidade : cidades) {
+			items.add(new SelectItem(cidade.getCodigo(), cidade.getNome()));
+			// System.out.println("Código de cidade: " + cidade.getCodigo()
+			// + " o nome da cidade: " + cidade.getNome());
+
+		}
+
+		// System.out.println("Existe instância de funcionário : "
+		// + cidades.contains(funcionario instanceof Funcionario));
+
+		System.out.println("Tamanho da lista: " + cidades.size());
+
+		System.out
+
+				.println("Verifica se na busca de cidades encontra o código do estado: "
+						+ cidades.contains(estado.getCodigo()));
+
+		return items;
+
+	}
 
 	public String salvar() {
 		try {
@@ -256,8 +255,9 @@ public class FuncionarioBean implements Serializable {
 	}
 
 	public List<SelectItem> getCidades() {
-		System.out.println(" realiza busca de cidade ? O.o : "
-				+ cidade.getNome());
+
+		System.out.println(" realiza busca de código da cidade no getCidades: "
+				+ cidade.getCodigo());
 		return cidades;
 	}
 

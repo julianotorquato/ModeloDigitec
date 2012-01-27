@@ -26,4 +26,8 @@ public class CidadeRN {
 	public List<Cidade> buscaTodasCidades() {
 		return this.cidadeDAO.buscaTodasCidades();
 	}
+
+	public Cidade recuperaCodigoCidade(Integer codigo) {
+		return this.cidadeDAO.recuperaCodigoCidade(codigo);
+	}
 }

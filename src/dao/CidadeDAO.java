@@ -13,4 +13,5 @@ public interface CidadeDAO {
 
 	public List<Cidade> buscaTodasCidades();
 
+	public Cidade recuperaCodigoCidade(Integer codigo);
 }

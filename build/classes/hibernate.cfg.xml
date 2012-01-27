@@ -30,6 +30,10 @@
 <!--   <mapping class="dominio.Estado"/> -->
 <!--   <mapping class="dominio.Cidade"/> -->
   <mapping class="dominio.Fornecedor"/>
+  <mapping class="dominio.Cliente"/>
+  <mapping class="dominio.Servico"/>
+  <mapping class="dominio.OrdemServico"/>
+  <mapping class="dominio.Cargo"/>
    
     </session-factory>
 </hibernate-configuration>
