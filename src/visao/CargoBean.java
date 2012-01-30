@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Model;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 import negocio.CargoRN;
 
@@ -44,9 +46,17 @@ public class CargoBean implements Serializable {
 			System.out.println("Operação de Inserção realizada."
 					+ cargo.getDescricao());
 
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"O Cargo " + cargo.getDescricao() + " foi registrado!!", "");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			limparCampo();
 		} catch (Exception e) {
 			LOGGER.error(e);
 		}
+	}
+
+	public void limparCampo() {
+		cargo = new Cargo();
 	}
 
 	// ############### Métodos Get e Set ############### //

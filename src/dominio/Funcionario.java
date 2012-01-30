@@ -61,8 +61,6 @@ public class Funcionario implements Serializable {
 	private String cep;
 
 	// @ManyToOne(fetch = FetchType.EAGER)
-	// @JoinColumn(name = "FK_ID_CIDADE", referencedColumnName = "ID_CIDADE",
-	// nullable = true)
 	// private Cidade cidade;
 
 	@Temporal(TemporalType.TIMESTAMP)

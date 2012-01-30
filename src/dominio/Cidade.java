@@ -1,7 +1,6 @@
 package dominio;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -33,8 +31,8 @@ public class Cidade implements Serializable {
 	@JoinColumn(name = "FK_ID_ESTADO", referencedColumnName = "ID_ESTADO", nullable = false)
 	private Estado estado;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cidade")
-	private List<Funcionario> funcionarios;
+	// @OneToMany(cascade = CascadeType.ALL, mappedBy = "cidade")
+	// private List<Funcionario> funcionarios;
 
 	// ################# Métodos Get e Set ################# //
 
@@ -62,13 +60,13 @@ public class Cidade implements Serializable {
 		this.estado = estado;
 	}
 
-	public List<Funcionario> getFuncionarios() {
-		return funcionarios;
-	}
-
-	public void setFuncionarios(List<Funcionario> funcionarios) {
-		this.funcionarios = funcionarios;
-	}
+	// public List<Funcionario> getFuncionarios() {
+	// return funcionarios;
+	// }
+	//
+	// public void setFuncionarios(List<Funcionario> funcionarios) {
+	// this.funcionarios = funcionarios;
+	// }
 
 	@Override
 	public int hashCode() {

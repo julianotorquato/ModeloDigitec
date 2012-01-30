@@ -14,5 +14,7 @@ public interface CargoDAO {
 
 	public Cargo buscaPorDescricao(String descricao);
 
+	public List<Cargo> listaDeCargoPorDescricao(String descricao);
+
 	public List<Cargo> buscaTodosCargos();
 }

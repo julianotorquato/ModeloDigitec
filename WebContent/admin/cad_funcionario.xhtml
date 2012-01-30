@@ -65,17 +65,17 @@
 					<p:message for="cep"/>
 					
 					<h:outputText value="Estado: " style="color:red;"/>
-					<h:selectOneMenu id="estado"  label="Estado" required="false" requiredMessage="Estado é um campo obrigatório.">
+					<h:selectOneMenu id="estado" value="#{funcionarioBean.estado.codigo}" label="Estado" required="false" requiredMessage="Estado é um campo obrigatório.">
 						<f:selectItem itemLabel="Selecione" itemValue=""/>
-						<f:selectItems  />
-						<p:ajax update="estado, cidade" />
+						<f:selectItems value="#{funcionarioBean.estados}" />
+						<p:ajax update="estado, cidade" listener="#{funcionarioBean.actionCarregaCidades}"/>
 					</h:selectOneMenu>
 					<p:message for="estado"/>
 					
 					<h:outputText value="Cidade: " style="color:red;"/>
-					<h:selectOneMenu id="cidade"  label="Cidade" required="false" requiredMessage="Cidade é um campo obrigatório.">
+					<h:selectOneMenu id="cidade" value="#{funcionarioBean.cidade.codigo}" label="Cidade" required="false" requiredMessage="Cidade é um campo obrigatório.">
 						<f:selectItem itemLabel="Selecione" itemValue=""/>
-						<f:selectItems />
+						<f:selectItems value="#{funcionarioBean.cidades}"/>
 					</h:selectOneMenu>
 					<p:message for="cidade"/>
 				</h:panelGrid>
@@ -98,6 +98,11 @@
 					<p:message for="salario"/>
 					
 					<h:outputText value="Cargo: " style="color:red;"/>
+					<p:outputPanel>
+						<p:inputText id="cargo" disabled="true" />						
+						<p:message for="cargo"/>
+					</p:outputPanel>
+					<p:commandButton value="..." onclick="pesqCargo.show()" required="true" label="Cargo" requiredMessage="Cargo é um campo obrigatório." />
 				</h:panelGrid>
 			</p:fieldset>
 			
@@ -152,9 +157,20 @@
 	</h:form>
 	
 <!-- **********************************	Pesquisa de Cargo **********************************-->
-	<p:dialog header="Pesquisa de Cargo" widgetVar="pesqCargo">
-		
-	
+	<p:dialog header="Cargos Digitec" widgetVar="pesqCargo" height="400" width="600" resizable="false" showEffect="fade" hideEffect="explode" modal="false">
+		<h:form>
+			<p:panel header="Pesquisa de Cargo">
+			<h:panelGrid columns="3" cellspacing="5">
+				<h:outputText value="Descrição: " />
+				<p:inputText id="descricao" />
+				<p:commandButton value="Pesquisar"/>
+			</h:panelGrid>
+			</p:panel>
+			
+			<p:spacer height="3"/>
+			
+			
+		</h:form>	
 	</p:dialog>
 	
 	</ui:define>

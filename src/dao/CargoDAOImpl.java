@@ -47,4 +47,23 @@ public class CargoDAOImpl implements CargoDAO {
 		return this.session.createCriteria(Cargo.class).list();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Cargo> listaDeCargoPorDescricao(String descricao) {
+
+		String hql = "Select distinct(c) from Cargo c  where c.descricao like :descricao";
+		Query consulta = this.session.createQuery(hql);
+		consulta.setString("descricao", "%" + descricao + "%");
+
+		// Criteria criteria = this.session.createCriteria(Cargo.class);
+		// criteria.add(Restrictions.like("descricao", descricao,
+		// MatchMode.ANYWHERE));
+		//
+		// criteria.addOrder(Order.asc("codigo"));
+		//
+		// cargos = criteria.list();
+
+		return consulta.list();
+	}
+
 }

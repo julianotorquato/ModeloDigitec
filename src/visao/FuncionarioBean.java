@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import negocio.CargoRN;
 import negocio.CidadeRN;
 import negocio.EstadoRN;
 import negocio.FuncionarioRN;
@@ -19,6 +20,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import dominio.Cargo;
 import dominio.Cidade;
 import dominio.Estado;
 import dominio.Funcionario;
@@ -41,7 +43,12 @@ public class FuncionarioBean implements Serializable {
 	private CidadeRN cidadeRN;
 	private EstadoRN estadoRN;
 	private FuncionarioRN funcionarioRN;
+	private CargoRN cargoRN;
 	private String senhaCriptografada;
+	private Cargo cargo;
+	private String buscaCargo;
+
+	// private List<Cargo> cargos;
 
 	public FuncionarioBean() {
 		inicializar();
@@ -53,11 +60,29 @@ public class FuncionarioBean implements Serializable {
 		cidadeRN = new CidadeRN();
 		estadoRN = new EstadoRN();
 		funcionarioRN = new FuncionarioRN();
+		cargoRN = new CargoRN();
 		funcionario = new Funcionario();
 		cidade = new Cidade();
 		estado = new Estado();
 		cidades = new ArrayList<SelectItem>();
+		cargo = new Cargo();
+		// cargos = cargoRN.buscaTodosCargos();
 
+	}
+
+	public List<SelectItem> getCargos() {
+
+		List<Cargo> listaCargos = cargoRN.buscaTodosCargos();
+
+		List<SelectItem> itemCargo = new ArrayList<SelectItem>(
+				listaCargos.size());
+
+		for (Cargo cargo : listaCargos) {
+			itemCargo.add(new SelectItem(cargo.getCodigo(), cargo
+					.getDescricao()));
+		}
+
+		return itemCargo;
 	}
 
 	public List<SelectItem> getEstados() {
@@ -117,6 +142,13 @@ public class FuncionarioBean implements Serializable {
 
 	}
 
+	// public void buscaCargoPorDescricao() {
+	// cargos = cargoRN.listaDeCargoPorDescricao(buscaCargo);
+	//
+	// System.out.println("Cargo encontrado: "
+	// + funcionario.getCargo().getDescricao());
+	// }
+
 	public String salvar() {
 		try {
 
@@ -138,7 +170,7 @@ public class FuncionarioBean implements Serializable {
 				String senhaCripto = DigestUtils.md5Hex(senha.getBytes());
 				this.funcionario.setSenha(senhaCripto);
 			}
-
+			funcionario.setCargo(cargo);
 			funcionarioRN.salvarOuAtualizar(this.funcionario);
 			System.out.println("Operação de Inserção realizada com sucesso!!!");
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -272,5 +304,30 @@ public class FuncionarioBean implements Serializable {
 	public void setSenhaCriptografada(String senhaCriptografada) {
 		this.senhaCriptografada = senhaCriptografada;
 	}
+
+	public Cargo getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(Cargo cargo) {
+		this.cargo = cargo;
+	}
+
+	public String getBuscaCargo() {
+		return buscaCargo;
+	}
+
+	public void setBuscaCargo(String buscaCargo) {
+		this.buscaCargo = buscaCargo;
+	}
+
+	// public List<Cargo> getCargos() {
+	// System.out.println("O cargo é: " + cargo.getDescricao());
+	// return cargos;
+	// }
+	//
+	// public void setCargos(List<Cargo> cargos) {
+	// this.cargos = cargos;
+	// }
 
 }

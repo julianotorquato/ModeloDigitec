@@ -6,7 +6,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.prime.com.tr/ui">
 
-<ui:composition template="/templates/template_interno.xhtml">
+<ui:composition template="/templates/template.xhtml">
 	<ui:define name="conteudo">
 	
 	<h:form id="formFuncionario">
@@ -64,20 +64,7 @@
 					<p:inputMask id="cep" required="true" label="CEP" mask="99999-999" value="#{funcionarioBean.funcionario.cep}" requiredMessage="CEP é um campo obrigatório."/>
 					<p:message for="cep"/>
 					
-					<h:outputText value="Estado: " style="color:red;"/>
-					<h:selectOneMenu id="estado"  label="Estado" value="" required="false" requiredMessage="Estado é um campo obrigatório.">
-						<f:selectItem itemLabel="Selecione" itemValue=""/>
-						<f:selectItems value=""  />
-						<p:ajax update="estado, cidade"  />
-					</h:selectOneMenu>
-					<p:message for="estado"/>
 					
-					<h:outputText value="Cidade: " style="color:red;"/>
-					<h:selectOneMenu id="cidade"  label="Cidade" value="" required="false" requiredMessage="Cidade é um campo obrigatório.">
-						<f:selectItem itemLabel="Selecione" itemValue=""/>
-						<f:selectItems value=""/>
-					</h:selectOneMenu>
-					<p:message for="cidade"/>
 				</h:panelGrid>
 			</p:fieldset>
 			
@@ -96,6 +83,13 @@
 						<f:convertNumber minFractionDigits="2"/>
 					</p:inputMask>
 					<p:message for="salario"/>
+					
+					<h:outputText value="Cargo: " style="color:red;"/>
+					<h:selectOneMenu id="cargo" value="#{funcionarioBean.cargo.codigo}" label="Cargo" required="true" requiredMessage="Cargo é um campo obrigatório.">
+						<f:selectItem itemLabel="Selecione" itemValue=""/>
+						<f:selectItems value="#{funcionarioBean.cargos}"/>
+					</h:selectOneMenu>
+					<p:message for="cargo"/>
 				</h:panelGrid>
 			</p:fieldset>
 			
@@ -135,11 +129,12 @@
 					<p:message for="senha"/>
 					
 					<h:outputLabel value="Confirma Senha:" for="confirmasenha" style="color:red;"/>
-					<p:password id="confirmasenha" required="true" label="Confirma Senha" value="#{funcionarioBean.confirmaSenha}" feedback="true" minLength="5" maxlength="10" />
+					<p:password id="confirmasenha" required="true" label="Confirma Senha" value="#{funcionarioBean.confirmaSenha}" feedback="true" minLength="5" maxlength="10"/>
 					<p:message for="confirmasenha"/>
 				</h:panelGrid>
 			</p:fieldset>
 			
+			<p:spacer height="3"/>
 			
 			<p:toolbar>
 				<p:toolbarGroup align="right">
@@ -147,6 +142,10 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 	</h:form>
+	
+<!-- **********************************	Pesquisa de Cargo **********************************-->
+	
+	
 	</ui:define>
 </ui:composition>		
 </html>

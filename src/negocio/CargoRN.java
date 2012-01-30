@@ -35,4 +35,8 @@ public class CargoRN {
 	public List<Cargo> buscaTodosCargos() {
 		return this.cargoDAO.buscaTodosCargos();
 	}
+
+	public List<Cargo> listaDeCargoPorDescricao(String descricao) {
+		return this.listaDeCargoPorDescricao(descricao);
+	}
 }
