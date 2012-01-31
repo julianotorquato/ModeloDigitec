@@ -35,7 +35,7 @@ public class FuncionarioBean implements Serializable {
 
 	private Funcionario funcionario;
 	private List<Funcionario> funcionarios;
-	private List<SelectItem> cidades;
+	// private List<SelectItem> cidades;
 	private Estado estado;
 	private Cidade cidade;
 	private String destinoSalvar;
@@ -64,7 +64,7 @@ public class FuncionarioBean implements Serializable {
 		funcionario = new Funcionario();
 		cidade = new Cidade();
 		estado = new Estado();
-		cidades = new ArrayList<SelectItem>();
+		// cidades = new ArrayList<SelectItem>();
 		cargo = new Cargo();
 		// cargos = cargoRN.buscaTodosCargos();
 
@@ -93,17 +93,17 @@ public class FuncionarioBean implements Serializable {
 
 		for (Estado estado : lista) {
 			itens.add(new SelectItem(estado.getCodigo(), estado.getSigla()));
-			// System.out.println("Código do estado: " + estado.getCodigo()
-			// + " o nome do estado: " + estado.getNome());
+
 		}
 
-		System.out.println("Tamanho da lista de estado: " + lista.size());
 		return itens;
 	}
 
 	public void actionCarregaCidades() {
 
-		this.cidades = this.getCidadeByEstado();
+		System.out.println("Código do estado pra pesquisar: "
+				+ estado.getCodigo());
+		// this.cidades = this.getCidadeByEstado();
 
 		System.out.println("O código da cidade selecionado é: "
 				+ this.cidade.getCodigo());
@@ -112,24 +112,31 @@ public class FuncionarioBean implements Serializable {
 
 	}
 
+	public List<SelectItem> getCidades() {
+
+		// List<Cidade> cidades = cidadeRN.getCidadePorEstado(this.estado
+		// .getCodigo());
+		List<Cidade> cidades = cidadeRN.buscaTodasCidades();
+
+		List<SelectItem> items = new ArrayList<SelectItem>(cidades.size());
+		for (Cidade cidade : cidades) {
+			items.add(new SelectItem(cidade.getCodigo(), cidade.getNome()));
+
+		}
+
+		return items;
+	}
+
 	public List<SelectItem> getCidadeByEstado() {
 
 		List<Cidade> cidades = cidadeRN.getCidadePorEstado(this.estado
 				.getCodigo());
 
-		System.out.println("Código do estado pra pesquisar: "
-				+ estado.getCodigo());
-
 		List<SelectItem> items = new ArrayList<SelectItem>(cidades.size());
 		for (Cidade cidade : cidades) {
 			items.add(new SelectItem(cidade.getCodigo(), cidade.getNome()));
-			// System.out.println("Código de cidade: " + cidade.getCodigo()
-			// + " o nome da cidade: " + cidade.getNome());
 
 		}
-
-		// System.out.println("Existe instância de funcionário : "
-		// + cidades.contains(funcionario instanceof Funcionario));
 
 		System.out.println("Tamanho da lista: " + cidades.size());
 
@@ -286,16 +293,14 @@ public class FuncionarioBean implements Serializable {
 		this.estado = estado;
 	}
 
-	public List<SelectItem> getCidades() {
-
-		System.out.println(" realiza busca de código da cidade no getCidades: "
-				+ cidade.getCodigo());
-		return cidades;
-	}
-
-	public void setCidades(List<SelectItem> cidades) {
-		this.cidades = cidades;
-	}
+	// public List<SelectItem> getCidades() {
+	//
+	// return cidades;
+	// }
+	//
+	// public void setCidades(List<SelectItem> cidades) {
+	// this.cidades = cidades;
+	// }
 
 	public String getSenhaCriptografada() {
 		return senhaCriptografada;

@@ -61,7 +61,11 @@ public class Funcionario implements Serializable {
 	private String cep;
 
 	// @ManyToOne(fetch = FetchType.EAGER)
+	// @JoinColumn(name = "FK_ID_CIDADE", referencedColumnName = "ID_CIDADE")
 	// private Cidade cidade;
+
+	@Column(name = "CIDADE_FUNCIONARIO", nullable = false, length = 60)
+	private String cidade;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "DATA_ADMISSAO_FUNCIONARIO", nullable = false)
@@ -86,7 +90,7 @@ public class Funcionario implements Serializable {
 	@Column(name = "STATUS_FUNCIONARIO", nullable = false)
 	private boolean ativo;
 
-	@Column(name = "SENHA_FUNCIONARIO", nullable = false)
+	@Column(name = "SENHA_FUNCIONARIO", nullable = false, length = 32)
 	private String senha;
 
 	@ElementCollection(targetClass = String.class)
@@ -248,13 +252,13 @@ public class Funcionario implements Serializable {
 		this.cep = cep;
 	}
 
-	// public Cidade getCidade() {
-	// return cidade;
-	// }
-	//
-	// public void setCidade(Cidade cidade) {
-	// this.cidade = cidade;
-	// }
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
 
 	public List<OrdemServico> getOrdemServicos() {
 		return ordemServicos;

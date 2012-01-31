@@ -6,7 +6,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.prime.com.tr/ui">
 
-<ui:composition template="/templates/template.xhtml">
+<ui:composition template="/templates/template_interno.xhtml">
 	<ui:define name="conteudo">
 	
 	<h:form id="formFuncionario">
@@ -64,7 +64,16 @@
 					<p:inputMask id="cep" required="true" label="CEP" mask="99999-999" value="#{funcionarioBean.funcionario.cep}" requiredMessage="CEP é um campo obrigatório."/>
 					<p:message for="cep"/>
 					
+					<h:outputText value="Estado: " style="color:red;"/>
+					<h:selectOneMenu id="estado" value="#{funcionarioBean.estado.codigo}" label="Estado" required="true" requiredMessage="Estado é um campo obrigatório.">
+						<f:selectItem itemLabel="Selecione" itemValue=""/>
+						<f:selectItems value="#{funcionarioBean.estados}" />	
+					</h:selectOneMenu>
+					<p:message for="estado"/>
 					
+					<h:outputText value="Cidade: " style="color:red;"/>
+					<p:inputText id="cidade" value="#{funcionarioBean.funcionario.cidade}" label="Cidade" required="true" requiredMessage="Cidade é um campo obrigatório."/>	
+					<p:message for="cidade"/>
 				</h:panelGrid>
 			</p:fieldset>
 			
